@@ -96,7 +96,7 @@ The scenario focuses on:
 - Dealing with a dangerous environment
 - Deciding what should be done before professional help arrives
 
-### 👵 "Grandma"
+### 👵 "Grandma in despair"
 
 Discover your grandmother in distress and figure out what is happening.
 
