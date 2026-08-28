@@ -65,6 +65,17 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, 2, transform.localScale.z);
             isCrouch = false;
         }
+
+        if(Keyboard.current.shiftKey.IsPressed() && isGrounded)
+        {
+            acceleration = 50f;
+            moveSpeed = 12f;
+        }
+        else
+        {
+            acceleration = 25f;
+            moveSpeed = 6f;
+        }
     }
 
     private void FixedUpdate()

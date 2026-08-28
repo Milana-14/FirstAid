@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using Unity.AI.Assistant.Agents;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,10 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Ray")]
     [SerializeField] private float rayLength = 2f;
     [SerializeField] private LayerMask collisionLayers = Physics.DefaultRaycastLayers;
+
+    private bool isHolding = false;
+
+    private Transform heldObject;
 
     void Update()
     {
@@ -78,7 +83,28 @@ public class PlayerInteraction : MonoBehaviour
 
             if(Keyboard.current.gKey.wasPressedThisFrame)
             {
-                hit.collider.GetComponent<PickUp>().PickUpObject();
+                if(!isHolding)
+                {
+                    hit.collider.GetComponent<PickUp>().PickUpObject();
+                    isHolding = true;
+                    heldObject = hit.collider.transform;
+                } 
+                else
+                {
+                    heldObject.GetComponent<PickUp>().PickUpObject();
+                    isHolding= false;
+                }
+            }
+        }
+        else
+        {
+            if (Keyboard.current.gKey.wasPressedThisFrame)
+            {
+                if(isHolding)
+                {
+                    heldObject.GetComponent<PickUp>().PickUpObject();
+                    isHolding = false;
+                }
             }
         }
     }

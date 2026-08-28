@@ -10,6 +10,7 @@ public class PickUp : MonoBehaviour
     private Vector3 initialScale;
     private Quaternion initialRotation;
     private Collider col;
+    private Rigidbody rb;
 
     private readonly Vector3 pickupLocalPosition = new(0.791f, 0.39f, 1f);
 
@@ -19,6 +20,7 @@ public class PickUp : MonoBehaviour
         initialScale = transform.localScale;
         initialRotation = transform.rotation;
         col = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -34,7 +36,10 @@ public class PickUp : MonoBehaviour
         if (!ispickedUp)
         {
             ispickedUp = true;
+
             if (col != null) col.enabled = false;
+            if (rb != null) rb.isKinematic = true; // stop physics from fighting the transform while held
+
             transform.SetParent(parent, false);
             transform.localRotation = Quaternion.identity;
 
@@ -50,9 +55,27 @@ public class PickUp : MonoBehaviour
         {
             ispickedUp = false;
             transform.SetParent(null, false);
-            transform.position = initialPosition;
-            transform.localScale = initialScale; // back to original world scale, no parent involved
+
+            Debug.Log("Dropping. Target initialPosition: " + initialPosition);
+
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.position = initialPosition;
+                rb.rotation = initialRotation;
+                Debug.Log("Rigidbody position after set: " + rb.position);
+            }
+            else
+            {
+                transform.position = initialPosition;
+                transform.rotation = initialRotation;
+            }
+
+            transform.localScale = initialScale;
+            Physics.SyncTransforms();
             if (col != null) col.enabled = true;
+
+            Debug.Log("Final transform.position: " + transform.position);
         }
     }
 }
