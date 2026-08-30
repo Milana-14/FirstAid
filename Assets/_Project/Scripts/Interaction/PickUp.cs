@@ -6,17 +6,16 @@ public class PickUp : MonoBehaviour
     [SerializeField] private float smoothSpeed = 8f;
     public bool ispickedUp = false;
 
-    private Vector3 initialPosition;
+    private Vector3 lastPosition;
     private Vector3 initialScale;
     private Quaternion initialRotation;
     private Collider col;
     private Rigidbody rb;
 
-    private readonly Vector3 pickupLocalPosition = new(0.791f, 0.39f, 1f);
+    public Vector3 pickupLocalPosition; 
 
     private void Awake()
     {
-        initialPosition = transform.position;
         initialScale = transform.localScale;
         initialRotation = transform.rotation;
         col = GetComponent<Collider>();
@@ -54,28 +53,26 @@ public class PickUp : MonoBehaviour
         else
         {
             ispickedUp = false;
-            transform.SetParent(null, false);
 
-            Debug.Log("Dropping. Target initialPosition: " + initialPosition);
+            // convert local pickup offset into world space, accounting for parent rotation/scale
+            lastPosition = parent.TransformPoint(pickupLocalPosition);
+
+            transform.SetParent(null, true); // preserve world position on unparent
+
+            transform.position = lastPosition;
+            transform.rotation = initialRotation;
+            transform.localScale = initialScale;
 
             if (rb != null)
             {
                 rb.isKinematic = false;
-                rb.position = initialPosition;
+                rb.position = lastPosition;
                 rb.rotation = initialRotation;
+                Physics.SyncTransforms();
                 Debug.Log("Rigidbody position after set: " + rb.position);
             }
-            else
-            {
-                transform.position = initialPosition;
-                transform.rotation = initialRotation;
-            }
 
-            transform.localScale = initialScale;
-            Physics.SyncTransforms();
             if (col != null) col.enabled = true;
-
-            Debug.Log("Final transform.position: " + transform.position);
         }
     }
 }
