@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         // Convert 2D input into a direction relative to which way the player is facing
         float facingSign = modelFacesBackward ? -1f : 1f;
         Vector3 moveDir = ((transform.forward * moveInput.y) + (transform.right * moveInput.x)) * facingSign;
