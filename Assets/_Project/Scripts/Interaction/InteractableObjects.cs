@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class InteractableObjects : MonoBehaviour
+public class 
+    InteractableObjects : MonoBehaviour
 {
     [Header("Interaction Settings")]
 
