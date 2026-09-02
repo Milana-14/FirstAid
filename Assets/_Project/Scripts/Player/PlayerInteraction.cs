@@ -1,7 +1,9 @@
 using Mono.Cecil.Cil;
+using TMPro;
 using Unity.AI.Assistant.Agents;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float rayLength = 2f;
     [SerializeField] private LayerMask collisionLayers = Physics.DefaultRaycastLayers;
 
+    [Header("UX")]
+    [SerializeField] private Image pointer;
+    [SerializeField] private TextMeshProUGUI sign;
+
     private bool isHoldingR = false;
     private bool isHoldingL = false;
 
@@ -20,6 +26,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private Vector3 rightHandPlacement = new(0.791f, 0.39f, 1.25f);
     private Vector3 leftHandPlacement = new(-0.791f, 0.39f, 1.18f);
+
+    private string state;
 
     void Update()
     {
@@ -32,11 +40,15 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayLength, collisionLayers))
         {
-            if (Keyboard.current.eKey.wasPressedThisFrame)
+            if (hit.transform.childCount != 0)
             {
-                if (hit.transform.childCount != 0)
+                if (hit.transform.GetChild(0).GetComponent<InteractableObjects>() != null && hit.transform.GetChild(0).GetComponent<Animator>() != null)
                 {
-                    if (hit.transform.GetChild(0).GetComponent<InteractableObjects>() != null && hit.transform.GetChild(0).GetComponent<Animator>() != null)
+                    state = hit.transform.GetChild(0).GetComponent<InteractableObjects>().isActivated ? "Close" : "Open";
+                    pointer.color = Color.darkOliveGreen;
+                    sign.text = $"Press E to {state}";
+
+                    if (Keyboard.current.eKey.wasPressedThisFrame)
                     {
 
                         Transform target = hit.collider.transform;
@@ -91,7 +103,29 @@ public class PlayerInteraction : MonoBehaviour
                         interactable.Interact(target);
                     }
                 }
-                else if (hit.collider.GetComponent<PickUp>() != null)
+            }
+            else if (hit.collider.GetComponent<PickUp>() != null)
+            {
+                pointer.color = Color.darkRed;
+
+                if (!isHoldingL && !isHoldingR)
+                {
+                    sign.text = "Press E or Q to grab";
+                }
+                else if (isHoldingL && !isHoldingR)
+                {
+                    sign.text = "Press E to grab or Q to drop";
+                }
+                else if (!isHoldingL && isHoldingR)
+                {
+                    sign.text = "Press Q to grab or E to drop";
+                }
+                else
+                {
+                    sign.text = "Your hands are full";
+                }
+
+                if (Keyboard.current.eKey.wasPressedThisFrame)
                 {
                     if (!isHoldingR)
                     {
@@ -107,47 +141,66 @@ public class PlayerInteraction : MonoBehaviour
                         isHoldingR = false;
                     }
                 }
-            }
 
-            /*if(Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                if(!isHoldingR)
+
+                /*if(Mouse.current.rightButton.wasPressedThisFrame)
                 {
-                    hit.collider.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                    hit.collider.GetComponent<PickUp>().PickUpObject();
-                    isHoldingR = true;
-                    rightheldObject = hit.collider.transform;
-                } 
-                else
+                    if(!isHoldingR)
+                    {
+                        hit.collider.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
+                        hit.collider.GetComponent<PickUp>().PickUpObject();
+                        isHoldingR = true;
+                        rightheldObject = hit.collider.transform;
+                    } 
+                    else
+                    {
+                        rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
+                        rightheldObject.GetComponent<PickUp>().PickUpObject();
+                        isHoldingR = false;
+                    }
+                }*/
+                if (Keyboard.current.qKey.wasPressedThisFrame)
                 {
-                    rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                    rightheldObject.GetComponent<PickUp>().PickUpObject();
-                    isHoldingR = false;
-                }
-            }*/
-            if(Keyboard.current.qKey.wasPressedThisFrame)
-            {
-                if (!isHoldingL)
-                {
-                    hit.collider.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                    hit.collider.GetComponent<PickUp>().PickUpObject();
-                    isHoldingL = true;
-                    leftheldObject = hit.collider.transform;
-                }
-                else
-                {
-                    leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                    leftheldObject.GetComponent<PickUp>().PickUpObject();
-                    isHoldingL = false;
+                    if (!isHoldingL)
+                    {
+                        hit.collider.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
+                        hit.collider.GetComponent<PickUp>().PickUpObject();
+                        isHoldingL = true;
+                        leftheldObject = hit.collider.transform;
+                    }
+                    else
+                    {
+                        leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
+                        leftheldObject.GetComponent<PickUp>().PickUpObject();
+                        isHoldingL = false;
+                    }
                 }
             }
 
         }
         else
         {
+            pointer.color = Color.white;
+            if(!isHoldingL && !isHoldingR)
+            {
+                sign.text = string.Empty;
+            }
+            else if (isHoldingL && isHoldingR)
+            {
+                sign.text = "Press E or Q to drop";
+            }
+            else if (isHoldingL && !isHoldingR)
+            {
+                sign.text = "Press Q to drop";
+            }
+            else if (!isHoldingL && isHoldingR)
+            {
+                sign.text = "Press E to drop";
+            }
+    
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                if(isHoldingR)
+                if (isHoldingR)
                 {
                     rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
                     rightheldObject.GetComponent<PickUp>().PickUpObject();
