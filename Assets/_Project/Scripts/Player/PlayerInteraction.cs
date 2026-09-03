@@ -29,12 +29,16 @@ public class PlayerInteraction : MonoBehaviour
 
     private string state;
 
+    private bool isHandled;
+
     void Update()
     {
         if (rayHolder == null)
         {
             return;
         }
+
+        isHandled = false;
 
         Ray ray = new Ray(rayHolder.position, rayHolder.forward);
 
@@ -44,8 +48,9 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (hit.transform.GetChild(0).GetComponent<InteractableObjects>() != null && hit.transform.GetChild(0).GetComponent<Animator>() != null)
                 {
+                    isHandled = true;
                     state = hit.transform.GetChild(0).GetComponent<InteractableObjects>().isActivated ? "Close" : "Open";
-                    pointer.color = Color.darkOliveGreen;
+                    pointer.color = Color.lightGreen;
                     sign.text = $"Press E to {state}";
 
                     if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -99,14 +104,18 @@ public class PlayerInteraction : MonoBehaviour
                             return;
                         }
 
-                        blockcol.enabled = interactable.isActivated;
+                        if(hit.collider.name.Contains("Door"))
+                        {
+                            blockcol.enabled = interactable.isActivated;
+                        }
                         interactable.Interact(target);
                     }
                 }
             }
             else if (hit.collider.GetComponent<PickUp>() != null)
             {
-                pointer.color = Color.darkRed;
+                isHandled = true;
+                pointer.color = Color.yellowGreen;
 
                 if (!isHoldingL && !isHoldingR)
                 {
@@ -176,7 +185,45 @@ public class PlayerInteraction : MonoBehaviour
                     }
                 }
             }
+            else if (isHandled == false)
+            {
+                pointer.color = Color.white;
+                if (!isHoldingL && !isHoldingR)
+                {
+                    sign.text = string.Empty;
+                }
+                else if (isHoldingL && isHoldingR)
+                {
+                    sign.text = "Press E or Q to drop";
+                }
+                else if (isHoldingL && !isHoldingR)
+                {
+                    sign.text = "Press Q to drop";
+                }
+                else if (!isHoldingL && isHoldingR)
+                {
+                    sign.text = "Press E to drop";
+                }
 
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    if (isHoldingR)
+                    {
+                        rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
+                        rightheldObject.GetComponent<PickUp>().PickUpObject();
+                        isHoldingR = false;
+                    }
+                }
+                if (Keyboard.current.qKey.wasPressedThisFrame)
+                {
+                    if (isHoldingL)
+                    {
+                        leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
+                        leftheldObject.GetComponent<PickUp>().PickUpObject();
+                        isHoldingL = false;
+                    }
+                }
+            }
         }
         else
         {
