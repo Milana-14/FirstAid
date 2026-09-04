@@ -1,23 +1,26 @@
+using Unity.Mathematics;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+public class Read : MonoBehaviour
 {
     [SerializeField] public Transform parent;
     [SerializeField] private float smoothSpeed = 8f;
     public bool ispickedUp = false;
 
-    private Vector3 lastPosition;
+    private Vector3 initialPosition;
     private Vector3 initialScale;
     private Quaternion initialRotation;
     private Collider col;
     private Rigidbody rb;
 
-    public Vector3 pickupLocalPosition; 
+    public Vector3 pickupLocalPosition;
+    private Quaternion readRotation = Quaternion.Euler(0, -180, 0);
 
     private void Awake()
     {
         initialScale = transform.localScale;
         initialRotation = transform.rotation;
+        initialPosition = transform.position;
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
     }
@@ -38,7 +41,7 @@ public class PickUp : MonoBehaviour
         }
     }
 
-    public void PickUpObject()
+    public void ReadObject()
     {
         if (!ispickedUp)
         {
@@ -48,7 +51,7 @@ public class PickUp : MonoBehaviour
             if (rb != null) rb.isKinematic = true; // stop physics from fighting the transform while held
 
             transform.SetParent(parent, false);
-            transform.localRotation = Quaternion.identity;
+            transform.localRotation = readRotation;
 
             // compensate for parent's scale so the object keeps its original world size
             Vector3 parentScale = parent.lossyScale;
@@ -62,19 +65,16 @@ public class PickUp : MonoBehaviour
         {
             ispickedUp = false;
 
-            // convert local pickup offset into world space, accounting for parent rotation/scale
-            lastPosition = parent.TransformPoint(pickupLocalPosition);
+            transform.SetParent(null, true);
 
-            transform.SetParent(null, true); // preserve world position on unparent
-
-            transform.position = lastPosition;
+            transform.position = initialPosition;
             transform.rotation = initialRotation;
             transform.localScale = initialScale;
 
             if (rb != null)
             {
-                rb.isKinematic = false;
-                rb.position = lastPosition;
+                rb.isKinematic = true;
+                rb.position = initialPosition;
                 rb.rotation = initialRotation;
                 Physics.SyncTransforms();
                 Debug.Log("Rigidbody position after set: " + rb.position);
