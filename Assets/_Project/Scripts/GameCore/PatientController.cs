@@ -8,6 +8,7 @@ public sealed class PatientController : MonoBehaviour
     public Patient Patient { get; private set; }
     private float _accumulatedSeconds;
     public int ElapsedSeconds { get; private set; }
+    public bool IsPaused { get; set; }
 
     public bool IsInitialized { get { return Patient != null; } }
 
@@ -28,7 +29,7 @@ public sealed class PatientController : MonoBehaviour
 
     private void Update()
     {
-        if (Patient == null) return;
+        if (IsPaused || Patient == null) return;
 
         _accumulatedSeconds += Time.deltaTime;
 

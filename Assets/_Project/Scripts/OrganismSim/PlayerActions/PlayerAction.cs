@@ -97,4 +97,47 @@ namespace OrganismSim.PlayerActions
                 : new ActionResult(ActionOutcome.Success, "Инжектирахте глюкагон.");
         }
     }
+    
+    public sealed class GiveInsulin : IPlayerAction
+    {
+        public string Name => "Дай инсулин";
+
+        public ActionResult Execute(Patient patient)
+        {
+            const double absorptionWindowSeconds = 120; // balance
+
+            patient.Physiology.Adjust(ParameterType.BloodGlucoseLevel, -10); // balance
+            patient.Absorptions.Enqueue(ParameterType.BloodGlucoseLevel, -50, absorptionWindowSeconds);
+
+            return new ActionResult(ActionOutcome.Success, "Дадохте инсулин.");
+        }
+    }
+    
+    public sealed class HelpStand : IPlayerAction
+    {
+        public string Name => "Помогни да стане";
+
+        public ActionResult Execute(Patient patient)
+        {
+            if (patient.Posture == PatientPosture.Standing)
+                return new ActionResult(ActionOutcome.Success, "Тя вече стои права.");
+
+            if (patient.Physiology.Get(ParameterType.Consciousness) <= 2)
+                return new ActionResult(ActionOutcome.Blocked, "Тя е в безсъзнание — не може да стане.");
+
+            patient.Posture = PatientPosture.Standing;
+            return new ActionResult(ActionOutcome.Success, "Тя стана права с ваша помощ.");
+        }
+    }
+    
+    public sealed class HelpSit : IPlayerAction
+    {
+        public string Name => "Помогни да седне";
+
+        public ActionResult Execute(Patient patient)
+        {
+            patient.Posture = PatientPosture.Supine;
+            return new ActionResult(ActionOutcome.Success, "Настанихте я седнала.");
+        }
+    }
 }
