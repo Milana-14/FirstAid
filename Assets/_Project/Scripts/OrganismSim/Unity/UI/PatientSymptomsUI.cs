@@ -20,11 +20,17 @@ public sealed class PatientSymptomsUI : MonoBehaviour
     
     private void UpdateSymptoms(Patient patient)
     {
-        List<string> activeSymptoms = new List<string>();
+        if (patient.ActiveSymptoms == null || patient.ActiveSymptoms.Count == 0)
+        {
+            symptomsText.text = "Няма активни симптоми";
+            return;
+        }
 
-        foreach (var a in patient.ActiveSymptoms)
-            activeSymptoms.Add(Symptoms[a]);
-        
+        List<string> activeSymptoms = new();
+
+        foreach (var symptom in patient.ActiveSymptoms)
+            activeSymptoms.Add(Symptoms[symptom]);
+
         symptomsText.text = string.Join("\n", activeSymptoms);
     }
     
