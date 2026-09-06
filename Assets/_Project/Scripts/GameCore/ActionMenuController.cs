@@ -1,43 +1,28 @@
 ﻿using OrganismSim.PlayerActions;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public sealed class ActionMenuController : MonoBehaviour
 {
     [SerializeField] private PatientController patientController;
     [SerializeField] private PhaseController phaseController;
-    [SerializeField] private Button juiceButton;
-    [SerializeField] private Button waterButton;
-    [SerializeField] private Button biscuitButton;
-    [SerializeField] private Button glucagonButton;
-    [SerializeField] private Button insulinButton;
-    [SerializeField] private Button helpStand;
-    [SerializeField] private Button helpSit;
-    [SerializeField] private Button callAmbulanceButton;
-    [SerializeField] private Text feedbackText;
-
-    private void Start()
-    {
-        juiceButton.onClick.AddListener(() => Execute(new GiveJuice()));
-        waterButton.onClick.AddListener(() => Execute(new GiveWater()));
-        biscuitButton.onClick.AddListener(() => Execute(new GiveBiscuit()));
-        glucagonButton.onClick.AddListener(() => Execute(new GiveGlucagon()));
-        insulinButton.onClick.AddListener(() => Execute(new GiveInsulin()));
-        helpStand.onClick.AddListener(() => Execute(new HelpStand()));
-        helpSit.onClick.AddListener(() => Execute(new HelpSit()));
-        callAmbulanceButton.onClick.AddListener(() => phaseController.CallAmbulance());
-    }
+    [SerializeField] private TMP_Text feedbackText;
 
     private void Update()
     {
-        bool interactable = phaseController.IsActivePhase;
-        juiceButton.interactable = interactable;
-        waterButton.interactable = interactable;
-        biscuitButton.interactable = interactable;
-        glucagonButton.interactable = interactable;
-        insulinButton.interactable = interactable;
-        helpStand.interactable = interactable;
-        helpSit.interactable = interactable;
+        if (!phaseController.IsActivePhase) return;
+        if (Keyboard.current == null) return;
+
+        if (Keyboard.current.digit1Key.wasPressedThisFrame) Execute(new GiveJuice());
+        else if (Keyboard.current.digit2Key.wasPressedThisFrame) Execute(new GiveWater());
+        else if (Keyboard.current.digit3Key.wasPressedThisFrame) Execute(new GiveBiscuit());
+        else if (Keyboard.current.digit4Key.wasPressedThisFrame) Execute(new GiveGlucagon());
+        else if (Keyboard.current.digit5Key.wasPressedThisFrame) Execute(new GiveInsulin());
+        else if (Keyboard.current.digit6Key.wasPressedThisFrame) Execute(new HelpStand());
+        else if (Keyboard.current.digit7Key.wasPressedThisFrame) Execute(new HelpSit());
+        else if (Keyboard.current.digit8Key.wasPressedThisFrame) phaseController.CallAmbulance();
     }
 
     private void Execute(IPlayerAction action)
