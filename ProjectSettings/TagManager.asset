@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Patient
   - NPC
+  - Placeable
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,5 @@
 using Mono.Cecil.Cil;
+using NUnit.Framework;
 using TMPro;
 using Unity.AI.Assistant.Agents;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class PlayerInteraction : MonoBehaviour
     [Header("UX")]
     [SerializeField] private Image pointer;
     [SerializeField] private TextMeshProUGUI sign;
+
+    [Header("Placing")]
+    [SerializeField] private string placeable;
 
     private bool isHoldingR = false;
     private bool isHoldingL = false;
@@ -47,72 +51,26 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayLength, collisionLayers))
         {
-            if (hit.transform.childCount != 0)
+            InteractableObjects parentInteractable = hit.transform.parent != null ? hit.transform.parent.GetComponent<InteractableObjects>() : null;
+            Animator parentAnim = hit.transform.parent != null ? hit.transform.parent.GetComponent<Animator>() : null;
+
+            if (parentInteractable != null && parentAnim != null && hit.transform.GetComponent<Read>() == null)
             {
-                if (hit.transform.GetChild(0).GetComponent<InteractableObjects>() != null && hit.transform.GetChild(0).GetComponent<Animator>() != null)
+                Transform parentObj = hit.transform.parent;
+                isHandled = true;
+                state = parentInteractable.isActivated ? "затвориш" : "отвориш";
+                pointer.color = Color.lightGreen;
+                sign.text = $"Натисни E, за да {state}";
+
+                if (Keyboard.current.eKey.wasPressedThisFrame)
                 {
-                    isHandled = true;
-                    state = hit.transform.GetChild(0).GetComponent<InteractableObjects>().isActivated ? "Close" : "Open";
-                    pointer.color = Color.lightGreen;
-                    sign.text = $"Press E to {state}";
+                    // the parent of the hit object is the one holding Animator + InteractableObjects
+                    Transform target = parentObj;
+                    Animator anim = parentAnim;
+                    InteractableObjects interactable = parentInteractable;
 
-                    if (Keyboard.current.eKey.wasPressedThisFrame)
-                    {
-
-                        Transform target = hit.collider.transform;
-                        Animator anim = target.GetComponent<Animator>();
-                        InteractableObjects interactable = target.GetComponent<InteractableObjects>();
-
-                        // if the hit object itself doesn't have what we need, try its first child
-                        if (anim == null || interactable == null)
-                        {
-                            if (hit.collider.transform.childCount == 0)
-                            {
-                                Debug.LogWarning(hit.collider.name + " has no children and no Animator/InteractableObjects on itself.");
-                                return;
-                            }
-
-                            target = hit.collider.transform.GetChild(0);
-                            anim = target.GetComponent<Animator>();
-                            interactable = target.GetComponent<InteractableObjects>();
-
-                            if (anim == null)
-                            {
-                                Debug.LogWarning("No Animator found on " + hit.collider.name + " or its first child.");
-                                return;
-                            }
-
-                            if (interactable == null)
-                            {
-                                Debug.LogWarning("No InteractableObjects found on " + hit.collider.name + " or its first child.");
-                                return;
-                            }
-                        }
-
-                        Collider blockcol = null;
-                        Collider[] allColliders = hit.collider.GetComponents<Collider>();
-
-                        foreach (Collider col in allColliders)
-                        {
-                            if (!col.isTrigger) // the solid one, not the detection trigger
-                            {
-                                blockcol = col;
-                                break;
-                            }
-                        }
-
-                        if (blockcol == null)
-                        {
-                            Debug.LogWarning("No blocking collider found on " + hit.collider.name);
-                            return;
-                        }
-
-                        if (hit.collider.name.Contains("Door"))
-                        {
-                            blockcol.enabled = interactable.isActivated;
-                        }
-                        interactable.Interact(target);
-                    }
+                    
+                    interactable.Interact(target);
                 }
             }
             else if (hit.collider.GetComponent<PickUp>() != null)
@@ -122,33 +80,33 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (!isHoldingL && !isHoldingR)
                 {
-                    sign.text = "Press E or Q to grab";
+                    sign.text = "Натисни E или Q, за да вземеш";
                 }
                 else if (isHoldingL && !isHoldingR)
                 {
                     if (leftheldObject.transform.GetComponent<Read>() != null)
                     {
-                        sign.text = "Press E to grab or Q to put back";
+                        sign.text = "Натисни E, за да вземеш, или Q, за да върнеш";
                     }
                     else
                     {
-                        sign.text = "Press E to grab or Q to drop";
+                        sign.text = "Натисни E, за да вземеш, или Q, за да пуснеш";
                     }
                 }
                 else if (!isHoldingL && isHoldingR)
                 {
                     if (rightheldObject.transform.GetComponent<Read>() != null)
                     {
-                        sign.text = "Press Q to grab or E to put back";
+                        sign.text = "Натисни Q, за да вземеш, или E, за да върнеш";
                     }
                     else
                     {
-                        sign.text = "Press Q to grab or E to drop";
+                        sign.text = "Натисни Q, за да вземеш, или E, за да пуснеш";
                     }
                 }
                 else
                 {
-                    sign.text = "Your hands are full";
+                    sign.text = "Ръцете ти са пълни";
                 }
 
                 if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -226,33 +184,33 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (!isHoldingL && !isHoldingR)
                 {
-                    sign.text = "Press E or Q to read";
+                    sign.text = "Натисни E или Q, за да четеш";
                 }
                 else if (isHoldingL && !isHoldingR)
                 {
                     if (leftheldObject.transform.GetComponent<PickUp>() != null)
                     {
-                        sign.text = "Press E to read or Q to drop";
+                        sign.text = "Натисни E, за да четеш, или Q, за да пуснеш";
                     }
                     else
                     {
-                        sign.text = "Press E to read or Q to put back";
+                        sign.text = "Натисни E, за да четеш, или Q, за да върнеш";
                     }
                 }
                 else if (!isHoldingL && isHoldingR)
                 {
                     if (rightheldObject.transform.GetComponent<Read>() != null)
                     {
-                        sign.text = "Press Q to read or E to put back";
+                        sign.text = "Натисни Q, за да четеш, или E, за да върнеш";
                     }
                     else
                     {
-                        sign.text = "Press Q to read or E to drop";
+                        sign.text = "Натисни Q, за да четеш, или E, за да пуснеш";
                     }
                 }
                 else
                 {
-                    sign.text = "Your hands are full";
+                    sign.text = "Ръцете ти са пълни";
                 }
 
                 if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -306,6 +264,21 @@ public class PlayerInteraction : MonoBehaviour
                 }
 
             }
+            else if(hit.transform.tag == placeable)
+            {
+                isHandled = true;
+                pointer.color = Color.cyan;
+                sign.text = "Натисни E, за да поставиш";
+
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    if (isHoldingR)
+                    {
+                        rightheldObject.GetComponent<PlaceDown>().Place(hit.transform);
+                        isHoldingR = false;
+                    }
+                }
+            }
             else if (isHandled == false)
             {
                 bool leftIsRead = false;
@@ -329,19 +302,19 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     if (leftIsRead && rightIsRead)
                     {
-                        sign.text = "Press E or Q to put back";
+                        sign.text = "Натисни E или Q, за да върнеш";
                     }
-                    else if(leftIsRead && !rightIsRead)
+                    else if (leftIsRead && !rightIsRead)
                     {
-                        sign.text = "Press Q to put back or E to drop";
+                        sign.text = "Натисни Q, за да върнеш, или E, за да пуснеш";
                     }
                     else if (!leftIsRead && rightIsRead)
                     {
-                        sign.text = "Press Q to drop or E to put back";
+                        sign.text = "Натисни Q, за да пуснеш, или E, за да върнеш";
                     }
                     else
                     {
-                        sign.text = "Press E or Q to drop";
+                        sign.text = "Натисни E или Q, за да пуснеш";
                     }
 
                 }
@@ -349,22 +322,22 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     if (leftIsRead)
                     {
-                        sign.text = "Press Q to put back";
+                        sign.text = "Натисни Q, за да върнеш";
                     }
                     else
                     {
-                        sign.text = "Press Q to drop";
+                        sign.text = "Натисни Q, за да пуснеш";
                     }
                 }
                 else if (!isHoldingL && isHoldingR)
                 {
                     if (rightIsRead)
                     {
-                        sign.text = "Press E to put back";
+                        sign.text = "Натисни E, за да върнеш";
                     }
                     else
                     {
-                        sign.text = "Press E to drop";
+                        sign.text = "Натисни E, за да пуснеш";
                     }
                 }
 
@@ -423,19 +396,19 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (leftIsRead && rightIsRead)
                 {
-                    sign.text = "Press E or Q to put back";
+                    sign.text = "Натисни E или Q, за да върнеш";
                 }
                 else if (leftIsRead && !rightIsRead)
                 {
-                    sign.text = "Press Q to put back or E to drop";
+                    sign.text = "Натисни Q, за да върнеш, или E, за да пуснеш";
                 }
                 else if (!leftIsRead && rightIsRead)
                 {
-                    sign.text = "Press Q to drop or E to put back";
+                    sign.text = "Натисни Q, за да пуснеш, или E, за да върнеш";
                 }
                 else
                 {
-                    sign.text = "Press E or Q to drop";
+                    sign.text = "Натисни E или Q, за да пуснеш";
                 }
 
             }
@@ -443,22 +416,22 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (leftIsRead)
                 {
-                    sign.text = "Press Q to put back";
+                    sign.text = "Натисни Q, за да върнеш";
                 }
                 else
                 {
-                    sign.text = "Press Q to drop";
+                    sign.text = "Натисни Q, за да пуснеш";
                 }
             }
             else if (!isHoldingL && isHoldingR)
             {
                 if (rightIsRead)
                 {
-                    sign.text = "Press E to put back";
+                    sign.text = "Натисни E, за да върнеш";
                 }
                 else
                 {
-                    sign.text = "Press E to drop";
+                    sign.text = "Натисни E, за да пуснеш";
                 }
             }
 
