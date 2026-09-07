@@ -19,7 +19,7 @@ public sealed class PatientController : MonoBehaviour
     public void Initialize(Patient patient)
     {
         if (patient == null) throw new ArgumentNullException("patient");
-        if (IsInitialized) throw new InvalidOperationException("PatientController is already initialized.");
+        if (IsInitialized) throw new InvalidOperationException("PatientController е вече инициализиран");
 
         Patient = patient;
         _accumulatedSeconds = 0f;

@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float acceleration = 25f;
 
+    [Header("Sprint")]
+    [SerializeField] private float sprintSpeed = 12f;
+    [SerializeField] private float sprintAcceleration = 50f;
+
     [Header("Jump")]
     [SerializeField] private float jumpForce = 7f;
 
@@ -16,57 +20,63 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundMask;
 
+    [Header("Crouch")]
+    [SerializeField] private float crouchHeight = 1f;
+
     [Header("Model Orientation")]
-    [Tooltip("If your character visually walks backward from what you press, your model likely faces -Z. Check this to flip movement direction.")]
     [SerializeField] private bool modelFacesBackward = false;
+    
+    private Rigidbody _rb;
+    private Vector2 _moveInput;
+    private bool _isGrounded;
+    private bool _isCrouch = false;
 
-    private Rigidbody rb;
-    private Vector2 moveInput;
-    private Vector3 currentVelocity;
-    private bool isGrounded;
-    private bool jumpRequested;
-    private bool isCrouch = false;
-
+    private Vector3 _standingScale;
+    private float _standingPositionY;
+    
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
+        _standingScale = transform.localScale;
     }
 
-    // Called automatically by PlayerInput (Behavior: Send Messages)
-    // Requires an action named "Move" in your input map
     public void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        _moveInput = value.Get<Vector2>();
     }
 
-    // Requires an action named "Jump" in your input map
     public void OnJump(InputValue value)
     {
-        Debug.Log($"Jump input received. isGrounded = {isGrounded}");
+        Debug.Log($"Jump input received. isGrounded = {_isGrounded}");
 
-        if (value.isPressed && isGrounded)
+        if (value.isPressed && _isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
+        _isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
 
-        if(Keyboard.current.cKey.wasPressedThisFrame && !isCrouch)
+        if (Keyboard.current.cKey.wasPressedThisFrame && !_isCrouch && _isGrounded)
         {
-            transform.localScale = new Vector3(transform.localScale.x, 1 , transform.localScale.z);
-            transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
-            isCrouch = true;
+            _standingPositionY = transform.position.y;
+            float heightDifference = _standingScale.y - crouchHeight;
+
+            transform.localScale = new Vector3(_standingScale.x, crouchHeight, _standingScale.z);
+            transform.position = new Vector3(transform.position.x, _standingPositionY - heightDifference / 2f, transform.position.z);
+
+            _isCrouch = true;
         }
-        else if (Keyboard.current.cKey.wasPressedThisFrame && isCrouch)
+        else if (Keyboard.current.cKey.wasPressedThisFrame && _isCrouch)
         {
-            transform.localScale = new Vector3(transform.localScale.x, 2, transform.localScale.z);
-            isCrouch = false;
+            transform.localScale = _standingScale;
+            transform.position = new Vector3(transform.position.x, _standingPositionY, transform.position.z);
+            _isCrouch = false;
         }
 
-        if(Keyboard.current.shiftKey.IsPressed() && isGrounded)
+        if (Keyboard.current.shiftKey.IsPressed() && _isGrounded && !_isCrouch)
         {
             acceleration = 50f;
             moveSpeed = 12f;
@@ -80,27 +90,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        // Convert 2D input into a direction relative to which way the player is facing
         float facingSign = modelFacesBackward ? -1f : 1f;
-        Vector3 moveDir = ((transform.forward * moveInput.y) + (transform.right * moveInput.x)) * facingSign;
+        Vector3 moveDir = (transform.forward * _moveInput.y + transform.right * _moveInput.x) * facingSign;
+        
         Vector3 targetVelocity = moveDir * moveSpeed;
+        Vector3 newVelocity = Vector3.MoveTowards(new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z), targetVelocity, acceleration * Time.fixedDeltaTime);
 
-        // Smoothly approach the target speed instead of snapping to it
-        Vector3 newVelocity = Vector3.MoveTowards(
-            new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z),
-            targetVelocity,
-            acceleration * Time.fixedDeltaTime
-        );
-
-        rb.linearVelocity = new Vector3(newVelocity.x, rb.linearVelocity.y, newVelocity.z);
-
-        if (jumpRequested)
-        {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            jumpRequested = false;
-        }
+        _rb.linearVelocity = new Vector3(newVelocity.x, _rb.linearVelocity.y, newVelocity.z);
     }
 
     private void OnDrawGizmosSelected()

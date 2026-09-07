@@ -1,5 +1,6 @@
 ﻿public enum ScenarioOutcome
 {
     Died,
-    Survived,
+    AmbulanceArrived,
+    Stabilized,
 }

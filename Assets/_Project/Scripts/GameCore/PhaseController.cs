@@ -12,10 +12,11 @@ public sealed class PhaseController : MonoBehaviour
     [SerializeField] private float ambulanceEtaSeconds = 300f;
 
     public bool IsActivePhase { get; private set; }
+    private bool _scenarioEnded;
     public bool AmbulanceCalled { get; private set; }
     private bool _ambulanceArrived;
 
-    public event Action<ScenarioOutcome> OnScenarioEnded;
+    public event Action<ScenarioOutcome, Patient> OnScenarioEnded;
 
     private void Awake()
     {
@@ -25,14 +26,29 @@ public sealed class PhaseController : MonoBehaviour
 
     private void HandlePatientReady()
     {
+        Patient patient = patientController.Patient;
+
+        patient.OnPatientDied += HandlePatientDied;
+        patient.OnPatientStabilized += HandlePatientStabilized;
+        
         StartCoroutine(ScenarioSequence());
     }
+    
+    private void OnDestroy()
+    {
+        if (scenarioController != null) scenarioController.OnPatientReady -= HandlePatientReady;
 
-    private IEnumerator ScenarioSequence() // i fkn love this part (inspired by Inscryption)
+        if (patientController != null && patientController.Patient != null)
+        {
+            patientController.Patient.OnPatientDied -= HandlePatientDied;
+            patientController.Patient.OnPatientStabilized -= HandlePatientStabilized;
+        }
+    }
+
+    private IEnumerator ScenarioSequence() // i love this part (inspired by Inscryption)
     {
         yield return StartCoroutine(IntroPhase());
         yield return StartCoroutine(ActivePhase());
-        yield return StartCoroutine(EndPhase());
     }
 
     private IEnumerator IntroPhase()
@@ -46,8 +62,7 @@ public sealed class PhaseController : MonoBehaviour
         IsActivePhase = true;
         patientController.IsPaused = false;
 
-        while (patientController.Patient.IsAlive && !_ambulanceArrived)
-            yield return null;
+        while (!_scenarioEnded) yield return null;
 
         IsActivePhase = false;
         patientController.IsPaused = true;
@@ -64,25 +79,27 @@ public sealed class PhaseController : MonoBehaviour
     {
         yield return new WaitForSeconds(ambulanceEtaSeconds);
         _ambulanceArrived = true;
+        EndScenario(ScenarioOutcome.AmbulanceArrived);
+    }
+    
+    private void HandlePatientDied()
+    {
+        EndScenario(ScenarioOutcome.Died);
     }
 
-    private IEnumerator EndPhase()
+    private void HandlePatientStabilized()
     {
-        var outcome = patientController.Patient.IsAlive ? ScenarioOutcome.Survived : ScenarioOutcome.Died;
+        EndScenario(ScenarioOutcome.Stabilized);
+    }
+    
+    private void EndScenario(ScenarioOutcome outcome)
+    {
+        if (_scenarioEnded) return;
+        
+        _scenarioEnded = true;
+        patientController.IsPaused = true;
+        IsActivePhase = false;
 
-        if (outcome == ScenarioOutcome.Survived)
-        {
-            var complications = new ComplicationEngine().Evaluate(patientController.Patient);
-
-            // тук ще се вика UI слой за добър епилог
-            yield return null; // само за сега е null
-        }
-        else if (outcome == ScenarioOutcome.Died)
-        {
-            // ще се вика лош епилог
-            yield return null; // само за сега е null
-        }
-
-        OnScenarioEnded?.Invoke(outcome); // трябва ми последовател за края на сценария
+        OnScenarioEnded?.Invoke(outcome, patientController.Patient);
     }
 }

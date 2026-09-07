@@ -412,7 +412,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -5.13, y: 2.92, z: 12.92}
-  m_LocalScale: {x: 1, y: 2.3, z: 1}
+  m_LocalScale: {x: 1, y: 2.35, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 757645229}
@@ -434,12 +434,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 6
   acceleration: 25
+  sprintSpeed: 12
+  sprintAcceleration: 50
   jumpForce: 4
   groundCheck: {fileID: 761775314}
   groundCheckRadius: 0.3
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  crouchHeight: 1
   modelFacesBackward: 0
 --- !u!114 &60692102
 MonoBehaviour:
@@ -8574,6 +8577,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9080442872618237535, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 497f72aca404ac3479202a56fc31eb92, type: 2}
+    - target: {fileID: -8988156419916025560, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 35413eca71a0bd4499e19f194dbe9b21, type: 2}
     - target: {fileID: -8679921383154817045, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.5454605
@@ -8626,10 +8637,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8417138669104247487, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 35413eca71a0bd4499e19f194dbe9b21, type: 2}
+    - target: {fileID: -8157215854381768839, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 497f72aca404ac3479202a56fc31eb92, type: 2}
+    - target: {fileID: -1047932555615329917, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 03d624bc194378641a791e7ef2c02742, type: 2}
     - target: {fileID: 919132149155446097, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
       propertyPath: m_Name
       value: grandma_for_unity
       objectReference: {fileID: 0}
+    - target: {fileID: 2616314469628696989, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 497f72aca404ac3479202a56fc31eb92, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8700617353114198275, guid: 0fff9cefc32abbf44ab971a505737d20, type: 3}

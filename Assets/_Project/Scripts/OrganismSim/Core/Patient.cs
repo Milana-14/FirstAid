@@ -28,6 +28,11 @@ namespace OrganismSim.Core
         public bool IsAlive { get; private set; } = true;
         public DeathCause CauseOfDeath { get; private set; } = DeathCause.None;
         public HashSet<SymptomType> ActiveSymptoms { get; private set; } = new();
+        
+        private bool _wasStabilized;
+        
+        public event Action OnPatientDied;
+        public event Action OnPatientStabilized;
 
         public Patient(string patientName)
         {
@@ -68,6 +73,7 @@ namespace OrganismSim.Core
             var resolvedSymptoms = old.Except(ActiveSymptoms).ToList();
 
             EvaluateDeath();
+            EvaluateState();
 
             return (newSymptoms, resolvedSymptoms, Physiology.Snapshot(), Pathology.ActiveConditions());
         }
@@ -86,6 +92,21 @@ namespace OrganismSim.Core
                     return;
                 }
             }
+        }
+        
+        private void EvaluateState()
+        {
+            if (!IsAlive)
+            {
+                OnPatientDied?.Invoke();
+                return;
+            }
+
+            bool isStabilized = IsStabilized();
+
+            if (isStabilized && !_wasStabilized) OnPatientStabilized?.Invoke();
+
+            _wasStabilized = isStabilized;
         }
 
         public bool IsStabilized()
