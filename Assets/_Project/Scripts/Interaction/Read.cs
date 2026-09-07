@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -16,9 +17,12 @@ public class Read : MonoBehaviour
     public Vector3 pickupLocalPosition;
     private Quaternion readRotation = Quaternion.Euler(0, -180, 0);
 
+    private Transform pin;
+
     private void Awake()
     {
-        initialScale = transform.localScale;
+        pin = transform.parent;
+        initialScale = transform.lossyScale;
         initialRotation = transform.rotation;
         initialPosition = transform.position;
         col = GetComponent<Collider>();
@@ -31,7 +35,6 @@ public class Read : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, pickupLocalPosition, smoothSpeed * Time.deltaTime);
 
-            // Compensate for parent scale changes (e.g., crouching)
             Vector3 parentScale = parent.lossyScale;
             transform.localScale = new Vector3(
                 initialScale.x / parentScale.x,
@@ -47,13 +50,16 @@ public class Read : MonoBehaviour
         {
             ispickedUp = true;
 
+            transform.SetParent(null, true);
+            pin.GetComponent<InteractableObjects>().Interact(pin);
+            StartCoroutine(WaitForAnim(false)); // pin deactivates only after the wait, inside the coroutine
+
             if (col != null) col.enabled = false;
-            if (rb != null) rb.isKinematic = true; // stop physics from fighting the transform while held
+            if (rb != null) rb.isKinematic = true;
 
             transform.SetParent(parent, false);
             transform.localRotation = readRotation;
 
-            // compensate for parent's scale so the object keeps its original world size
             Vector3 parentScale = parent.lossyScale;
             transform.localScale = new Vector3(
                 initialScale.x / parentScale.x,
@@ -64,6 +70,10 @@ public class Read : MonoBehaviour
         else
         {
             ispickedUp = false;
+
+            pin.gameObject.SetActive(true);
+            pin.GetComponent<InteractableObjects>().Interact(pin);
+            StartCoroutine(WaitForAnim(true)); // already active, but harmless to reaffirm after wait
 
             transform.SetParent(null, true);
 
@@ -77,10 +87,18 @@ public class Read : MonoBehaviour
                 rb.position = initialPosition;
                 rb.rotation = initialRotation;
                 Physics.SyncTransforms();
-                Debug.Log("Rigidbody position after set: " + rb.position);
             }
 
             if (col != null) col.enabled = true;
+
+            //transform.SetParent(pin, true);
         }
+    }
+
+    private IEnumerator WaitForAnim(bool activateAfter)
+    {
+        yield return new WaitForSeconds(0.25f); 
+
+        pin.gameObject.SetActive(activateAfter);
     }
 }

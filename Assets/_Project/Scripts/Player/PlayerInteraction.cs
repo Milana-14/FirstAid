@@ -107,7 +107,7 @@ public class PlayerInteraction : MonoBehaviour
                             return;
                         }
 
-                        if(hit.collider.name.Contains("Door"))
+                        if (hit.collider.name.Contains("Door"))
                         {
                             blockcol.enabled = interactable.isActivated;
                         }
@@ -126,11 +126,25 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 else if (isHoldingL && !isHoldingR)
                 {
-                    sign.text = "Press E to grab or Q to put back";
+                    if (leftheldObject.transform.GetComponent<Read>() != null)
+                    {
+                        sign.text = "Press E to grab or Q to put back";
+                    }
+                    else
+                    {
+                        sign.text = "Press E to grab or Q to drop";
+                    }
                 }
                 else if (!isHoldingL && isHoldingR)
                 {
-                    sign.text = "Press Q to grab or E to put back";
+                    if (rightheldObject.transform.GetComponent<Read>() != null)
+                    {
+                        sign.text = "Press Q to grab or E to put back";
+                    }
+                    else
+                    {
+                        sign.text = "Press Q to grab or E to drop";
+                    }
                 }
                 else
                 {
@@ -148,7 +162,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else
                     {
-                        if(rightheldObject.transform.GetComponent<Read>() != null)
+                        if (rightheldObject.transform.GetComponent<Read>() != null)
                         {
                             rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
                             rightheldObject.GetComponent<Read>().ReadObject();
@@ -191,7 +205,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else
                     {
-                        if(leftheldObject.transform.GetComponent<Read>() != null)
+                        if (leftheldObject.transform.GetComponent<Read>() != null)
                         {
                             leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
                             leftheldObject.GetComponent<Read>().ReadObject();
@@ -216,11 +230,25 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 else if (isHoldingL && !isHoldingR)
                 {
-                    sign.text = "Press E to read or Q to put back";
+                    if (leftheldObject.transform.GetComponent<PickUp>() != null)
+                    {
+                        sign.text = "Press E to read or Q to drop";
+                    }
+                    else
+                    {
+                        sign.text = "Press E to read or Q to put back";
+                    }
                 }
                 else if (!isHoldingL && isHoldingR)
                 {
-                    sign.text = "Press Q to read or E to put back";
+                    if (rightheldObject.transform.GetComponent<Read>() != null)
+                    {
+                        sign.text = "Press Q to read or E to put back";
+                    }
+                    else
+                    {
+                        sign.text = "Press Q to read or E to drop";
+                    }
                 }
                 else
                 {
@@ -238,7 +266,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else
                     {
-                        if(rightheldObject.transform.GetComponent<Read>() != null)
+                        if (rightheldObject.transform.GetComponent<Read>() != null)
                         {
                             rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
                             rightheldObject.GetComponent<Read>().ReadObject();
@@ -263,7 +291,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else
                     {
-                        if(leftheldObject.transform.GetComponent<Read>() != null)
+                        if (leftheldObject.transform.GetComponent<Read>() != null)
                         {
                             leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
                             leftheldObject.GetComponent<Read>().ReadObject();
@@ -280,6 +308,18 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (isHandled == false)
             {
+                bool leftIsRead = false;
+                bool rightIsRead = false;
+
+                if (leftheldObject != null)
+                {
+                    leftIsRead = leftheldObject.transform.GetComponent<Read>() != null;
+                }
+                if (rightheldObject != null)
+                {
+                    rightIsRead = rightheldObject.transform.GetComponent<Read>() != null;
+                }
+
                 pointer.color = Color.white;
                 if (!isHoldingL && !isHoldingR)
                 {
@@ -287,15 +327,45 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 else if (isHoldingL && isHoldingR)
                 {
-                    sign.text = "Press E or Q to put back";
+                    if (leftIsRead && rightIsRead)
+                    {
+                        sign.text = "Press E or Q to put back";
+                    }
+                    else if(leftIsRead && !rightIsRead)
+                    {
+                        sign.text = "Press Q to put back or E to drop";
+                    }
+                    else if (!leftIsRead && rightIsRead)
+                    {
+                        sign.text = "Press Q to drop or E to put back";
+                    }
+                    else
+                    {
+                        sign.text = "Press E or Q to drop";
+                    }
+
                 }
                 else if (isHoldingL && !isHoldingR)
                 {
-                    sign.text = "Press Q to put back";
+                    if (leftIsRead)
+                    {
+                        sign.text = "Press Q to put back";
+                    }
+                    else
+                    {
+                        sign.text = "Press Q to drop";
+                    }
                 }
                 else if (!isHoldingL && isHoldingR)
                 {
-                    sign.text = "Press E to put back";
+                    if (rightIsRead)
+                    {
+                        sign.text = "Press E to put back";
+                    }
+                    else
+                    {
+                        sign.text = "Press E to drop";
+                    }
                 }
 
                 if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -332,24 +402,66 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
+            bool leftIsRead = false;
+            bool rightIsRead = false;
+
+            if (leftheldObject != null)
+            {
+                leftIsRead = leftheldObject.transform.GetComponent<Read>() != null;
+            }
+            if (rightheldObject != null)
+            {
+                rightIsRead = rightheldObject.transform.GetComponent<Read>() != null;
+            }
+
             pointer.color = Color.white;
-            if(!isHoldingL && !isHoldingR)
+            if (!isHoldingL && !isHoldingR)
             {
                 sign.text = string.Empty;
             }
             else if (isHoldingL && isHoldingR)
             {
-                sign.text = "Press E or Q to put back";
+                if (leftIsRead && rightIsRead)
+                {
+                    sign.text = "Press E or Q to put back";
+                }
+                else if (leftIsRead && !rightIsRead)
+                {
+                    sign.text = "Press Q to put back or E to drop";
+                }
+                else if (!leftIsRead && rightIsRead)
+                {
+                    sign.text = "Press Q to drop or E to put back";
+                }
+                else
+                {
+                    sign.text = "Press E or Q to drop";
+                }
+
             }
             else if (isHoldingL && !isHoldingR)
             {
-                sign.text = "Press Q to put back";
+                if (leftIsRead)
+                {
+                    sign.text = "Press Q to put back";
+                }
+                else
+                {
+                    sign.text = "Press Q to drop";
+                }
             }
             else if (!isHoldingL && isHoldingR)
             {
-                sign.text = "Press E to put back";
+                if (rightIsRead)
+                {
+                    sign.text = "Press E to put back";
+                }
+                else
+                {
+                    sign.text = "Press E to drop";
+                }
             }
-    
+
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 if (isHoldingR && rightheldObject.transform.GetComponent<Read>() == null)
