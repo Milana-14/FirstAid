@@ -9,12 +9,14 @@ public sealed class PhaseController : MonoBehaviour
 
     [SerializeField] private PatientController patientController;
     [SerializeField] private ScenarioController scenarioController;
-    [SerializeField] private float ambulanceEtaSeconds = 300f;
+    [SerializeField] private int ambulanceEtaSeconds = 300; // balance
 
     public bool IsActivePhase { get; private set; }
     private bool _scenarioEnded;
     public bool AmbulanceCalled { get; private set; }
+    private int _accumulatedEtaSeconds;
     private bool _ambulanceArrived;
+    public event Action<int> OnTimeEtaChanged;
 
     public event Action<ScenarioOutcome, Patient> OnScenarioEnded;
 
@@ -77,7 +79,16 @@ public sealed class PhaseController : MonoBehaviour
 
     private IEnumerator AmbulanceTimer()
     {
-        yield return new WaitForSeconds(ambulanceEtaSeconds);
+        _accumulatedEtaSeconds = 0;
+        
+        while (_accumulatedEtaSeconds <= ambulanceEtaSeconds)
+        {
+            yield return new WaitForSeconds(1f);
+            _accumulatedEtaSeconds += 1;
+
+            OnTimeEtaChanged?.Invoke(ambulanceEtaSeconds - _accumulatedEtaSeconds);
+        }
+        
         _ambulanceArrived = true;
         EndScenario(ScenarioOutcome.AmbulanceArrived);
     }
