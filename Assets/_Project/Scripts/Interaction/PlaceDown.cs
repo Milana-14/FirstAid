@@ -9,7 +9,7 @@ public class PlaceDown : MonoBehaviour
 
     private void Awake()
     {
-        initialRotation = transform.rotation;
+        //initialRotation = transform.rotation;
         initialScale = transform.localScale;
     }
 
@@ -28,10 +28,12 @@ public class PlaceDown : MonoBehaviour
             if (!isPlaced)
             {
                 transform.GetComponent<PickUp>().PickUpObject();
-                transform.localScale = new Vector3(1, 1, 1);
-                transform.SetParent(placeableObj, true);
-                transform.localRotation = initialRotation;
-                transform.position = new Vector3(0, -0.002f, 0);
+
+                transform.SetParent(placeableObj, false);
+                transform.localScale = Vector3.one;
+                transform.localRotation = Quaternion.identity;
+                transform.localPosition = new Vector3(0, -0.00001f, 0);
+
                 transform.GetComponent<Rigidbody>().isKinematic = true;
                 isPlaced = true;
             }

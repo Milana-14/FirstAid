@@ -69,7 +69,7 @@ public class PlayerInteraction : MonoBehaviour
                     Animator anim = parentAnim;
                     InteractableObjects interactable = parentInteractable;
 
-                    
+
                     interactable.Interact(target);
                 }
             }
@@ -264,19 +264,76 @@ public class PlayerInteraction : MonoBehaviour
                 }
 
             }
-            else if(hit.transform.tag == placeable)
+            else if (hit.transform.tag == placeable)
             {
                 isHandled = true;
                 pointer.color = Color.cyan;
-                sign.text = "Натисни E, за да поставиш";
 
-                if (Keyboard.current.eKey.wasPressedThisFrame)
+                bool rightCanPlace = isHoldingR && rightheldObject.GetComponent<PlaceDown>() != null;
+                bool leftCanPlace = isHoldingL && leftheldObject.GetComponent<PlaceDown>() != null;
+
+                bool rightIsRead = isHoldingR && !rightCanPlace && rightheldObject.GetComponent<Read>() != null;
+                bool leftIsRead = isHoldingL && !leftCanPlace && leftheldObject.GetComponent<Read>() != null;
+
+                string rightVerb = rightCanPlace ? "поставиш" : (rightIsRead ? "върнеш" : "пуснеш");
+                string leftVerb = leftCanPlace ? "поставиш" : (leftIsRead ? "върнеш" : "пуснеш");
+
+                if (isHoldingR && isHoldingL)
                 {
-                    if (isHoldingR)
+                    sign.text = $"Натисни E, за да {rightVerb}, или Q, за да {leftVerb}";
+                }
+                else if (isHoldingR)
+                {
+                    sign.text = $"Натисни E, за да {rightVerb}";
+                }
+                else if (isHoldingL)
+                {
+                    sign.text = $"Натисни Q, за да {leftVerb}";
+                }
+                else
+                {
+                    pointer.color = Color.white;
+                    sign.text = string.Empty;
+                }
+
+                if (Keyboard.current.eKey.wasPressedThisFrame && isHoldingR)
+                {
+                    if (rightCanPlace)
                     {
                         rightheldObject.GetComponent<PlaceDown>().Place(hit.transform);
-                        isHoldingR = false;
                     }
+                    else if (rightIsRead)
+                    {
+                        rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
+                        rightheldObject.GetComponent<Read>().ReadObject();
+                    }
+                    else
+                    {
+                        rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
+                        rightheldObject.GetComponent<PickUp>().PickUpObject();
+                    }
+                    isHoldingR = false;
+                    rightheldObject = null;
+                }
+
+                if (Keyboard.current.qKey.wasPressedThisFrame && isHoldingL)
+                {
+                    if (leftCanPlace)
+                    {
+                        leftheldObject.GetComponent<PlaceDown>().Place(hit.transform);
+                    }
+                    else if (leftIsRead)
+                    {
+                        leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
+                        leftheldObject.GetComponent<Read>().ReadObject();
+                    }
+                    else
+                    {
+                        leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
+                        leftheldObject.GetComponent<PickUp>().PickUpObject();
+                    }
+                    isHoldingL = false;
+                    leftheldObject = null;
                 }
             }
             else if (isHandled == false)
