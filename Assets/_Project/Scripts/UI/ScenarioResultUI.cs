@@ -7,57 +7,42 @@ public sealed class ScenarioResultUI : MonoBehaviour
 {
     [SerializeField] private PhaseController phaseController;
     [SerializeField] private TMP_Text resultText;
-    [SerializeField] private GameObject textObject;
-    private readonly ComplicationEngine _complicationEngine = new();
-
-    private void Awake()
+    [SerializeField] private GameObject panelObject;
+    
+    private void OnEnable()
     {
         phaseController.OnScenarioEnded += HandleScenarioEnded;
     }
-    
-    private void OnDestroy()
+
+    private void OnDisable()
     {
         phaseController.OnScenarioEnded -= HandleScenarioEnded;
     }
 
-    private void HandleScenarioEnded(ScenarioOutcome outcome, Patient patient) // усложнения
+    private void HandleScenarioEnded(ScenarioOutcome outcome, Patient patient, DeathCause deathCause, IReadOnlyList<string> complications)
     {
-        IReadOnlyList<string> complications = _complicationEngine.Evaluate(patient);
+        panelObject.SetActive(true);
         
-        textObject.SetActive(true);
-        
-        if (outcome == ScenarioOutcome.AmbulanceArrived)
+        string key = outcome switch
         {
-            // добър резултат
-            resultText.text = "Линейката е пристигнала на време благодарение на твоята помощ";
+            ScenarioOutcome.AmbulanceArrived => complications.Count == 0 ? "outcome_ambulance_clean" : "outcome_ambulance_complications",
+            ScenarioOutcome.Stabilized => complications.Count == 0 ? "outcome_stabilized_clean" : "outcome_stabilized_complications",
+            ScenarioOutcome.Died => "outcome_died",
+            _ => string.Empty
+        };
+        
+        var args = new object[]
+        {
+            new {
+                patientName = patient.Name,
+                deathCause = deathCause.ToString(),
+                complications = string.Join(", ", complications)
+            }
+        };
 
-            if (complications.Count <= 0)
-            {
-                resultText.text += ". Бабата даже не е развила никакви усложнения, ти си истинка сигма. ";
-            }
-            else if (complications.Count > 0)
-            {
-                resultText.text += $". Обаче {patient.Name} е {string.Join(", ", complications)}.";
-            }
-        }
-        else if (outcome == ScenarioOutcome.Died)
+        LocalizationService.Instance.GetLocalizedStringWithArgs("UI_Table", key, args, (translatedText) =>
         {
-            // лош резултат
-            resultText.text = "Ти си идиот. ";
-        }
-        else if (outcome ==  ScenarioOutcome.Stabilized) // усложнения
-        {
-            // Прекрасен резултат
-            resultText.text = "Браво1 Ти си сигма";
-            
-            if (complications.Count <= 0)
-            {
-                resultText.text += ". Бабата даже не е развила никакви усложнения, ти си истинка сигма.";
-            }
-            else if (complications.Count > 0)
-            {
-                resultText.text += $". Обаче {patient.Name} е {string.Join(", ", complications)}.";
-            }
-        }
+            resultText.text = translatedText;
+        });
     }
 }

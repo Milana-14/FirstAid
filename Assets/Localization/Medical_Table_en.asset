@@ -1,0 +1,355 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Medical_Table_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 4550376463b404741a7175f69603913d, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 204765659136
+    m_Localized: Hunger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242048
+    m_Localized: Sweating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242049
+    m_Localized: Tremor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242050
+    m_Localized: Salivation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242051
+    m_Localized: Palpitations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242052
+    m_Localized: Rapid and weak pulse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242053
+    m_Localized: Panic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242054
+    m_Localized: Anxiety
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242055
+    m_Localized: Restlessness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242056
+    m_Localized: Agitation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242057
+    m_Localized: Paleness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242058
+    m_Localized: Dilated pupils
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242059
+    m_Localized: Nausea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242060
+    m_Localized: Vomiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242061
+    m_Localized: Weakness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242062
+    m_Localized: Headache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242063
+    m_Localized: Dizziness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242064
+    m_Localized: Drowsiness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242065
+    m_Localized: Paresthesia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242066
+    m_Localized: Numbness around mouth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242067
+    m_Localized: Blurred vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242068
+    m_Localized: Double vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242069
+    m_Localized: Difficulty concentrating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242070
+    m_Localized: Confusion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242071
+    m_Localized: Disorientation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242072
+    m_Localized: Slurred speech
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242073
+    m_Localized: Impaired coordination
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242074
+    m_Localized: Apathy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242075
+    m_Localized: Aggressiveness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242076
+    m_Localized: Reduced pain response
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242077
+    m_Localized: Reduced touch response
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242078
+    m_Localized: Reduced temperature response
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242079
+    m_Localized: Loss of swallowing reflex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242080
+    m_Localized: Loss of speech
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242081
+    m_Localized: Unresponsive to stimuli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242082
+    m_Localized: Stupor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242083
+    m_Localized: Loss of muscle tone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242084
+    m_Localized: Low blood pressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242085
+    m_Localized: Slow breathing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242086
+    m_Localized: Left arm weakness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242087
+    m_Localized: Pain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242088
+    m_Localized: Shortness of breath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242089
+    m_Localized: Blood volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242090
+    m_Localized: Blood pressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242091
+    m_Localized: Peripheral vascular resistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242092
+    m_Localized: Heart rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242093
+    m_Localized: Cerebral blood flow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242094
+    m_Localized: Peripheral organ blood flow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242095
+    m_Localized: Intracranial pressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242096
+    m_Localized: Pleural blood volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242097
+    m_Localized: Respiratory rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242098
+    m_Localized: Blood oxygen level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242099
+    m_Localized: Blood CO2 level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242100
+    m_Localized: Pulmonary capillary pressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242101
+    m_Localized: Blood glucose level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242102
+    m_Localized: Body temperature
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242103
+    m_Localized: Level of consciousness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242104
+    m_Localized: Brain function
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242105
+    m_Localized: Stress level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242106
+    m_Localized: Pain level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242107
+    m_Localized: Comfort level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242108
+    m_Localized: External bleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242109
+    m_Localized: Hemothorax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242110
+    m_Localized: Intra-abdominal bleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242111
+    m_Localized: Pericardial tamponade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242112
+    m_Localized: Intracranial process
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242113
+    m_Localized: Airway obstruction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242114
+    m_Localized: Lung injury
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242115
+    m_Localized: Pulmonary edema
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242116
+    m_Localized: Heart failure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242117
+    m_Localized: Impaired cerebral blood flow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242118
+    m_Localized: Shock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242119
+    m_Localized: Hypoglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242120
+    m_Localized: Hyperglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242121
+    m_Localized: Dehydration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242122
+    m_Localized: Seizure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242123
+    m_Localized: Increased sympathetic activity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242124
+    m_Localized: Increased parasympathetic activity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242125
+    m_Localized: Hypothermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242126
+    m_Localized: Hyperthermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242127
+    m_Localized: Mild allergic reaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242128
+    m_Localized: Anaphylaxis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242129
+    m_Localized: Fracture
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

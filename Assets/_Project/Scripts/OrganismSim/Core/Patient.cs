@@ -31,7 +31,7 @@ namespace OrganismSim.Core
         
         private bool _wasStabilized;
         
-        public event Action OnPatientDied;
+        public event Action<DeathCause> OnPatientDied;
         public event Action OnPatientStabilized;
 
         public Patient(string patientName)
@@ -98,7 +98,7 @@ namespace OrganismSim.Core
         {
             if (!IsAlive)
             {
-                OnPatientDied?.Invoke();
+                OnPatientDied?.Invoke(CauseOfDeath);
                 return;
             }
 

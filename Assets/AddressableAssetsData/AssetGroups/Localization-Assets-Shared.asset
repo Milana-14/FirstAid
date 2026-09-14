@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 9355059bc542c9c41b9668a74789fd82
+  m_SerializeEntries:
+  - m_GUID: 4550376463b404741a7175f69603913d
+    m_Address: Assets/Localization/Medical_Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9514e148fdaeeb041967f2bdc7effd3b
+    m_Address: Assets/Localization/Actions_Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d57bdc54433c348478d17575bf41ea08
+    m_Address: Assets/Localization/UI_Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 4f06fb0dcbbc76d4e9ba524d6d81d9c7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c3a99f5be233d9a48b16860b36cb11dc, type: 2}
+    - {fileID: 11400000, guid: 59d507c50e142dc49ab8decb9ec40adc, type: 2}
+    - {fileID: 11400000, guid: 02e55ddf508d33d438a11be4acb38abe, type: 2}

@@ -1,0 +1,360 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Medical_Table Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Medical_Table
+  m_TableCollectionNameGuidString: 4550376463b404741a7175f69603913d
+  m_Entries:
+  - m_Id: 204765659136
+    m_Key: Symptom_Hunger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242048
+    m_Key: Symptom_Sweating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242049
+    m_Key: Symptom_Tremor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242050
+    m_Key: Symptom_Salivation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242051
+    m_Key: Symptom_Palpitations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242052
+    m_Key: Symptom_RapidWeakPulse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242053
+    m_Key: Symptom_Panic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242054
+    m_Key: Symptom_Anxiety
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242055
+    m_Key: Symptom_Restlessness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242056
+    m_Key: Symptom_Agitation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242057
+    m_Key: Symptom_Paleness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242058
+    m_Key: Symptom_Mydriasis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242059
+    m_Key: Symptom_Nausea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242060
+    m_Key: Symptom_Vomiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242061
+    m_Key: Symptom_Weakness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242062
+    m_Key: Symptom_Headache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242063
+    m_Key: Symptom_Dizziness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242064
+    m_Key: Symptom_Drowsiness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242065
+    m_Key: Symptom_Paresthesia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242066
+    m_Key: Symptom_NumbnessAroundMouth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242067
+    m_Key: Symptom_BlurredVision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242068
+    m_Key: Symptom_DoubleVision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242069
+    m_Key: Symptom_DifficultyConcentrating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242070
+    m_Key: Symptom_Confusion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242071
+    m_Key: Symptom_Disorientation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242072
+    m_Key: Symptom_SlurredSpeech
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242073
+    m_Key: Symptom_CoordinationProblems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242074
+    m_Key: Symptom_Apathy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242075
+    m_Key: Symptom_Aggression
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242076
+    m_Key: Symptom_ReducedPainResponse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242077
+    m_Key: Symptom_ReducedTouchResponse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242078
+    m_Key: Symptom_ReducedTemperatureResponse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242079
+    m_Key: Symptom_LossOfSwallowingReflex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242080
+    m_Key: Symptom_LossOfSpeech
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242081
+    m_Key: Symptom_Unresponsive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242082
+    m_Key: Symptom_Stupor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242083
+    m_Key: Symptom_MuscleToneLoss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242084
+    m_Key: Symptom_LowBloodPressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242085
+    m_Key: Symptom_SlowBreathing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242086
+    m_Key: Symptom_LeftArmWeakness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242087
+    m_Key: Symptom_Pain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242088
+    m_Key: Symptom_ShortnessOfBreath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242089
+    m_Key: Param_BloodVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242090
+    m_Key: Param_BloodPressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242091
+    m_Key: Param_PeripheralVascularResistance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242092
+    m_Key: Param_HeartRate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242093
+    m_Key: Param_CerebralBloodFlow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242094
+    m_Key: Param_PeripheralOrganBloodFlow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242095
+    m_Key: Param_IntracranialPressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242096
+    m_Key: Param_PleuralBloodVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242097
+    m_Key: Param_RespiratoryRate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242098
+    m_Key: Param_BloodOxygenLevel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242099
+    m_Key: Param_BloodCo2Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242100
+    m_Key: Param_PulmonaryCapillaryPressure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242101
+    m_Key: Param_BloodGlucoseLevel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242102
+    m_Key: Param_BodyTemperature
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242103
+    m_Key: Param_Consciousness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242104
+    m_Key: Param_BrainFunction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242105
+    m_Key: Param_Stress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242106
+    m_Key: Param_Pain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242107
+    m_Key: Param_Comfort
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242108
+    m_Key: Condition_ExternalBleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242109
+    m_Key: Condition_Hemothorax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242110
+    m_Key: Condition_IntraAbdominalBleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242111
+    m_Key: Condition_PericardialTamponade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242112
+    m_Key: Condition_IntracranialProcess
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242113
+    m_Key: Condition_AirwayObstruction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242114
+    m_Key: Condition_LungInjury
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242115
+    m_Key: Condition_PulmonaryEdema
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242116
+    m_Key: Condition_HeartFailure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242117
+    m_Key: Condition_ImpairedCerebralBloodFlow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242118
+    m_Key: Condition_Shock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242119
+    m_Key: Condition_Hypoglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242120
+    m_Key: Condition_Hyperglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242121
+    m_Key: Condition_Dehydration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242122
+    m_Key: Condition_Seizure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242123
+    m_Key: Condition_IncreasedSympatheticActivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242124
+    m_Key: Condition_IncreasedParasympatheticActivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242125
+    m_Key: Condition_Hypothermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242126
+    m_Key: Condition_Hyperthermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242127
+    m_Key: Condition_MildAllergicReaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242128
+    m_Key: Condition_Anaphylaxis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 204778242129
+    m_Key: Condition_Fracture111
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8290521418724540420
+  references:
+    version: 2
+    RefIds:
+    - rid: 8290521418724540420
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1789415258901

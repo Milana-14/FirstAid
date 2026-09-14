@@ -8,6 +8,9 @@ public sealed class ActionResultUI : MonoBehaviour
     [SerializeField] private PatientController patientController;
     [SerializeField] private TMP_Text actionResultText;
     
+    [Header("Table Settings")]
+    [SerializeField] private string uiTableName = "Actions_Table";
+    
     [Header("Fade Settings")]
     [SerializeField] private float fadeDuration = 5f;
     
@@ -25,7 +28,17 @@ public sealed class ActionResultUI : MonoBehaviour
     
     private void ShowActionResult(ActionResult result)
     {
-        actionResultText.text = result.ToString();
+        if (string.IsNullOrEmpty(result.MessageKey)) return;
+
+        if (result.MessageArgs != null && result.MessageArgs.Length > 0) 
+            LocalizationService.Instance.GetLocalizedStringWithArgs(uiTableName, result.MessageKey, result.MessageArgs, DisplayText);
+        else 
+            LocalizationService.Instance.GetLocalizedString(uiTableName, result.MessageKey, DisplayText);
+    }
+
+    private void DisplayText(string translatedText)
+    {
+        actionResultText.text = translatedText;
         actionResultText.gameObject.SetActive(true);
 
         if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);

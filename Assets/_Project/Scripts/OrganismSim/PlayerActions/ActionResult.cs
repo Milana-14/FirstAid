@@ -3,12 +3,14 @@ namespace OrganismSim.PlayerActions
     public readonly struct ActionResult
     {
         public ActionOutcome Outcome { get; }
-        public string Message { get; }
+        public string MessageKey { get; }
+        public object[] MessageArgs { get; }
 
-        public ActionResult(ActionOutcome outcome, string message)
+        public ActionResult(ActionOutcome outcome, string messageKey, object[] messageArgs = null)
         {
             Outcome = outcome;
-            Message = message;
+            MessageKey = messageKey;
+            MessageArgs = messageArgs;
         }
     }
 }

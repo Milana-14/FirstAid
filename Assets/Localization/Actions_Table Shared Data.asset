@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Actions_Table Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Actions_Table
+  m_TableCollectionNameGuidString: 9514e148fdaeeb041967f2bdc7effd3b
+  m_Entries:
+  - m_Id: 2376072953856
+    m_Key: action_give_water_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953857
+    m_Key: action_give_juice_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953858
+    m_Key: action_give_biscuit_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953859
+    m_Key: action_give_glucagon_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953860
+    m_Key: action_give_insulin_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953861
+    m_Key: action_help_stand_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953862
+    m_Key: action_help_sit_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953863
+    m_Key: action_give_water_choked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953864
+    m_Key: action_give_water_success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953865
+    m_Key: action_give_juice_choked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953866
+    m_Key: action_give_juice_success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953867
+    m_Key: action_give_biscuit_choked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953868
+    m_Key: action_give_biscuit_success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953869
+    m_Key: action_give_glucagon_vomit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953870
+    m_Key: action_give_glucagon_success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953871
+    m_Key: action_give_insulin_success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953872
+    m_Key: action_help_stand_already_standing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953873
+    m_Key: action_help_stand_unconscious
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953874
+    m_Key: action_help_stand_success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2376072953875
+    m_Key: action_help_sit_success
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8290521409549763025
+  references:
+    version: 2
+    RefIds:
+    - rid: 8290521409549763025
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1789414453777

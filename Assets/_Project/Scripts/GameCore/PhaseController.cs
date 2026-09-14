@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using OrganismSim.Core;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public sealed class PhaseController : MonoBehaviour
 
     [SerializeField] private PatientController patientController;
     [SerializeField] private ScenarioController scenarioController;
+    [SerializeField] private ComplicationEngine complicationEngine;
     [SerializeField] private int ambulanceEtaSeconds = 300; // balance
 
     public bool IsActivePhase { get; private set; }
@@ -18,7 +20,7 @@ public sealed class PhaseController : MonoBehaviour
     private bool _ambulanceArrived;
     public event Action<int> OnTimeEtaChanged;
 
-    public event Action<ScenarioOutcome, Patient> OnScenarioEnded;
+    public event Action<ScenarioOutcome, Patient, DeathCause, IReadOnlyList<string>> OnScenarioEnded;
 
     private void Awake()
     {
@@ -90,20 +92,20 @@ public sealed class PhaseController : MonoBehaviour
         }
         
         _ambulanceArrived = true;
-        EndScenario(ScenarioOutcome.AmbulanceArrived);
+        EndScenario(ScenarioOutcome.AmbulanceArrived, DeathCause.None);
     }
     
-    private void HandlePatientDied()
+    private void HandlePatientDied(DeathCause cause)
     {
-        EndScenario(ScenarioOutcome.Died);
+        EndScenario(ScenarioOutcome.Died, cause);
     }
 
     private void HandlePatientStabilized()
     {
-        EndScenario(ScenarioOutcome.Stabilized);
+        EndScenario(ScenarioOutcome.Stabilized, DeathCause.None);
     }
     
-    private void EndScenario(ScenarioOutcome outcome)
+    private void EndScenario(ScenarioOutcome outcome, DeathCause cause)
     {
         if (_scenarioEnded) return;
         
@@ -111,6 +113,6 @@ public sealed class PhaseController : MonoBehaviour
         patientController.IsPaused = true;
         IsActivePhase = false;
 
-        OnScenarioEnded?.Invoke(outcome, patientController.Patient);
+        OnScenarioEnded?.Invoke(outcome, patientController.Patient, cause, complicationEngine.Evaluate(patientController.Patient));
     }
 }

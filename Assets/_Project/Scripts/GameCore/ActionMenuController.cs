@@ -1,14 +1,11 @@
 ﻿using OrganismSim.PlayerActions;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public sealed class ActionMenuController : MonoBehaviour
 {
     [SerializeField] private PatientController patientController;
     [SerializeField] private PhaseController phaseController;
-    [SerializeField] private TMP_Text feedbackText;
 
     private void Update()
     {
@@ -27,7 +24,6 @@ public sealed class ActionMenuController : MonoBehaviour
 
     private void Execute(IPlayerAction action)
     {
-        var result = patientController.TryExecuteAction(action);
-        feedbackText.text = result.Message;
+        patientController.TryExecuteAction(action);
     }
 }

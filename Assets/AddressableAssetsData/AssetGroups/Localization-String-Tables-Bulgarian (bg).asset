@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-String-Tables-Bulgarian (bg)
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-String-Tables-Bulgarian (bg)
+  m_GUID: 74b54e70e31e8ac448ad7592bfbfaa95
+  m_SerializeEntries:
+  - m_GUID: 072dcf8b4b5213640b28184de0f663a1
+    m_Address: Actions_Table_bg
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bg
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a87397d0bb92d9419b358228b41e5ea
+    m_Address: Medical_Table_bg
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bg
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b45f8acff18d0b246870761d3c8424e1
+    m_Address: UI_Table_bg
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-bg
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 4f06fb0dcbbc76d4e9ba524d6d81d9c7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 06732b9e777b51e45b461876d6142ef6, type: 2}
+    - {fileID: 11400000, guid: f64410bbeedd5504ca576eca56adf028, type: 2}
+    - {fileID: 11400000, guid: 3876fb4b560b3634a8711870ba04e37e, type: 2}

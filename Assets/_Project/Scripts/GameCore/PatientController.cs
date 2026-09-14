@@ -49,7 +49,7 @@ public sealed class PatientController : MonoBehaviour
         OnTimeChanged?.Invoke(ElapsedSeconds);
     }
 
-    public ActionResult TryExecuteAction(IPlayerAction action)
+    public void TryExecuteAction(IPlayerAction action)
     {
         if (Patient == null) throw new InvalidOperationException("PatientController is not initialized.");
         if (action == null) throw new ArgumentNullException("action");
@@ -57,7 +57,5 @@ public sealed class PatientController : MonoBehaviour
         ActionResult result = action.Execute(Patient);
 
         OnActionResult?.Invoke(result);
-
-        return result;
     }
 }
