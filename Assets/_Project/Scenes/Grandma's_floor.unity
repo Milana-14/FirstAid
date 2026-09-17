@@ -37310,6 +37310,7 @@ GameObject:
   - component: {fileID: 5795941776643896100}
   - component: {fileID: 5635640462927573843}
   - component: {fileID: 5795941776643896101}
+  - component: {fileID: 5795941776643896102}
   m_Layer: 0
   m_Name: Object_184
   m_TagString: Placeable
@@ -54299,8 +54300,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2439959222353010859}
   m_Mesh: {fileID: 6781806765050303469, guid: 7c54aa67556897f41b008c6519c0fad1, type: 3}
---- !u!64 &5795941776643896101
-MeshCollider:
+--- !u!65 &5795941776643896101
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -54317,10 +54318,23 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6781806765050303469, guid: 7c54aa67556897f41b008c6519c0fad1, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.006575111, y: 0.00028917374, z: 0.0063909697}
+  m_Center: {x: 0.0000906071, y: 0.00020492083, z: -0.000008664131}
+--- !u!114 &5795941776643896102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2439959222353010859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151213a702145374aa62415decd41175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaceableObj
+  children: 0
+  full: 0
 --- !u!33 &5802279549833214772
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlaceDown : MonoBehaviour
@@ -25,17 +26,23 @@ public class PlaceDown : MonoBehaviour
     {
         if (placeableObj != null)
         {
-            if (!isPlaced)
+            if (!isPlaced && placeableObj.GetComponent<PlaceableObj>() != null && !placeableObj.GetComponent<PlaceableObj>().full)
             {
-                transform.GetComponent<PickUp>().PickUpObject();
+                PickUp pickupComponent = transform.GetComponent<PickUp>();
+
+                if (pickupComponent.ispickedUp)
+                {
+                    pickupComponent.PickUpObject();
+                }
 
                 transform.SetParent(placeableObj, false);
                 transform.localScale = Vector3.one;
                 transform.localRotation = Quaternion.identity;
-                transform.localPosition = new Vector3(0, -0.00001f, 0);
+                transform.localPosition = placeableObj.GetComponent<PlaceableObj>().getPPos();
 
                 transform.GetComponent<Rigidbody>().isKinematic = true;
                 isPlaced = true;
+
             }
         }
     }

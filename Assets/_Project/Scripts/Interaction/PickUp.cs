@@ -7,17 +7,19 @@ public class PickUp : MonoBehaviour
     public bool ispickedUp = false;
 
     private Vector3 lastPosition;
+    private Vector3 initialPosition;
     private Vector3 initialScale;
     private Quaternion initialRotation;
     private Collider col;
     private Rigidbody rb;
 
-    public Vector3 pickupLocalPosition; 
+    public Vector3 pickupLocalPosition;
 
     private void Awake()
     {
         initialScale = transform.localScale;
         initialRotation = transform.rotation;
+        initialPosition = transform.position;
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
     }
@@ -70,6 +72,9 @@ public class PickUp : MonoBehaviour
             transform.position = lastPosition;
             transform.rotation = initialRotation;
             transform.localScale = initialScale;
+
+            // Update initial position so future pickups remember this placement location
+            initialPosition = lastPosition;
 
             if (rb != null)
             {

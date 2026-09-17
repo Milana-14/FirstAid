@@ -269,8 +269,11 @@ public class PlayerInteraction : MonoBehaviour
                 isHandled = true;
                 pointer.color = Color.cyan;
 
-                bool rightCanPlace = isHoldingR && rightheldObject.GetComponent<PlaceDown>() != null;
-                bool leftCanPlace = isHoldingL && leftheldObject.GetComponent<PlaceDown>() != null;
+                PlaceableObj placeableComponent = hit.transform.GetComponent<PlaceableObj>();
+                bool placeableFull = placeableComponent != null && placeableComponent.full;
+
+                bool rightCanPlace = isHoldingR && rightheldObject.GetComponent<PlaceDown>() != null && !placeableFull;
+                bool leftCanPlace = isHoldingL && leftheldObject.GetComponent<PlaceDown>() != null && !placeableFull;
 
                 bool rightIsRead = isHoldingR && !rightCanPlace && rightheldObject.GetComponent<Read>() != null;
                 bool leftIsRead = isHoldingL && !leftCanPlace && leftheldObject.GetComponent<Read>() != null;
@@ -278,22 +281,54 @@ public class PlayerInteraction : MonoBehaviour
                 string rightVerb = rightCanPlace ? "поставиш" : (rightIsRead ? "върнеш" : "пуснеш");
                 string leftVerb = leftCanPlace ? "поставиш" : (leftIsRead ? "върнеш" : "пуснеш");
 
+                // Create status display
+                string statusDisplay = "";
+                if (placeableComponent != null)
+                {
+                    statusDisplay = $"\n[{placeableComponent.children}/3]";
+                    if (placeableFull)
+                    {
+                        statusDisplay += " Няма място";
+                    }
+                }
+
                 if (isHoldingR && isHoldingL)
                 {
-                    sign.text = $"Натисни E, за да {rightVerb}, или Q, за да {leftVerb}";
+                    if (placeableFull)
+                    {
+                        sign.text = $"Няма място{statusDisplay}";
+                    }
+                    else
+                    {
+                        sign.text = $"Натисни E, за да {rightVerb}, или Q, за да {leftVerb}{statusDisplay}";
+                    }
                 }
                 else if (isHoldingR)
                 {
-                    sign.text = $"Натисни E, за да {rightVerb}";
+                    if (placeableFull)
+                    {
+                        sign.text = $"Няма място{statusDisplay}";
+                    }
+                    else
+                    {
+                        sign.text = $"Натисни E, за да {rightVerb}{statusDisplay}";
+                    }
                 }
                 else if (isHoldingL)
                 {
-                    sign.text = $"Натисни Q, за да {leftVerb}";
+                    if (placeableFull)
+                    {
+                        sign.text = $"Няма място{statusDisplay}";
+                    }
+                    else
+                    {
+                        sign.text = $"Натисни Q, за да {leftVerb}{statusDisplay}";
+                    }
                 }
                 else
                 {
                     pointer.color = Color.white;
-                    sign.text = string.Empty;
+                    sign.text = statusDisplay != "" ? statusDisplay.Substring(1) : string.Empty;
                 }
 
                 if (Keyboard.current.eKey.wasPressedThisFrame && isHoldingR)
