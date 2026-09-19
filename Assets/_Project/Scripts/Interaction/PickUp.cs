@@ -1,91 +1,78 @@
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public sealed class PickUp : MonoBehaviour
 {
-    [SerializeField] public Transform parent;
+    [SerializeField] private Transform parent;
     [SerializeField] private float smoothSpeed = 8f;
-    public bool ispickedUp = false;
+    [SerializeField] private Vector3 pickupLocalPosition;
 
-    private Vector3 lastPosition;
-    private Vector3 initialPosition;
     private Vector3 initialScale;
     private Quaternion initialRotation;
     private Collider col;
     private Rigidbody rb;
 
-    public Vector3 pickupLocalPosition;
-
+    public bool IsPickedUp { get; private set; }
+    
     private void Awake()
     {
         initialScale = transform.localScale;
         initialRotation = transform.rotation;
-        initialPosition = transform.position;
+
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
     }
-
+    
     private void Update()
     {
-        if (ispickedUp)
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, pickupLocalPosition, smoothSpeed * Time.deltaTime);
+        if (!IsPickedUp) return;
 
-            // Compensate for parent scale changes (e.g., crouching)
-            Vector3 parentScale = parent.lossyScale;
-            transform.localScale = new Vector3(
-                initialScale.x / parentScale.x,
-                initialScale.y / parentScale.y,
-                initialScale.z / parentScale.z
-            );
-        }
+        transform.localPosition = Vector3.Lerp(transform.localPosition, pickupLocalPosition, smoothSpeed * Time.deltaTime);
+        Vector3 parentScale = parent.lossyScale;
+        transform.localScale = new Vector3(initialScale.x / parentScale.x, initialScale.y / parentScale.y, initialScale.z / parentScale.z);
     }
 
     public void PickUpObject()
     {
-        if (!ispickedUp)
+        if (IsPickedUp) return;
+        IsPickedUp = true;
+        
+        if (col != null) col.enabled = false;
+        if (rb != null) rb.isKinematic = true;
+
+        transform.SetParent(parent, false);
+        transform.localRotation = Quaternion.identity;
+
+        Vector3 parentScale = parent.lossyScale;
+
+        transform.localScale = new Vector3(initialScale.x / parentScale.x, initialScale.y / parentScale.y, initialScale.z / parentScale.z);
+    }
+
+    public void Drop()
+    {
+        if (!IsPickedUp) return;
+        IsPickedUp = false;
+
+        Vector3 worldPosition = parent.TransformPoint(pickupLocalPosition);
+
+        transform.SetParent(null, true);
+        transform.position = worldPosition;
+        transform.rotation = initialRotation;
+        transform.localScale = initialScale;
+
+        if (rb != null)
         {
-            ispickedUp = true;
-
-            if (col != null) col.enabled = false;
-            if (rb != null) rb.isKinematic = true; // stop physics from fighting the transform while held
-
-            transform.SetParent(parent, false);
-            transform.localRotation = Quaternion.identity;
-
-            // compensate for parent's scale so the object keeps its original world size
-            Vector3 parentScale = parent.lossyScale;
-            transform.localScale = new Vector3(
-                initialScale.x / parentScale.x,
-                initialScale.y / parentScale.y,
-                initialScale.z / parentScale.z
-            );
+            rb.isKinematic = false;
+            rb.position = worldPosition;
+            rb.rotation = initialRotation;
         }
-        else
-        {
-            ispickedUp = false;
 
-            // convert local pickup offset into world space, accounting for parent rotation/scale
-            lastPosition = parent.TransformPoint(pickupLocalPosition);
-
-            transform.SetParent(null, true); // preserve world position on unparent
-
-            transform.position = lastPosition;
-            transform.rotation = initialRotation;
-            transform.localScale = initialScale;
-
-            // Update initial position so future pickups remember this placement location
-            initialPosition = lastPosition;
-
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-                rb.position = lastPosition;
-                rb.rotation = initialRotation;
-                Physics.SyncTransforms();
-                Debug.Log("Rigidbody position after set: " + rb.position);
-            }
-
-            if (col != null) col.enabled = true;
-        }
+        if (col != null) col.enabled = true;
+        Physics.SyncTransforms();
+    }
+    
+    public void SetPickupPosition(Vector3 position)
+    {
+        pickupLocalPosition = position;
     }
 }

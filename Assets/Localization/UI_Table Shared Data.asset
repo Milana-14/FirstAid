@@ -39,6 +39,90 @@ MonoBehaviour:
     m_Key: outcome_died
     m_Metadata:
       m_Items: []
+  - m_Id: 1664246022406144
+    m_Key: Prompt_Interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246039183360
+    m_Key: Prompt_PickUp_Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377664
+    m_Key: Prompt_PickUp_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377665
+    m_Key: Prompt_PickUp_TwoHands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377666
+    m_Key: Prompt_Drop_Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377667
+    m_Key: Prompt_Drop_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377668
+    m_Key: Prompt_Drop_TwoHands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377669
+    m_Key: Prompt_Read_Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377670
+    m_Key: Prompt_Read_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377671
+    m_Key: Prompt_Read_TwoHands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377672
+    m_Key: Prompt_Return_Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377673
+    m_Key: Prompt_Return_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377674
+    m_Key: Prompt_Return_TwoHands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377675
+    m_Key: Prompt_Return_Right_Drop_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377676
+    m_Key: Prompt_Drop_Right_Return_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377677
+    m_Key: Prompt_Place_Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377678
+    m_Key: Prompt_Place_Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377679
+    m_Key: Prompt_Place_TwoHands
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377680
+    m_Key: Prompt_HandsFull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377681
+    m_Key: Prompt_NoRoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1667688048623616
+    m_Key: Hint_CallAmbulance
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

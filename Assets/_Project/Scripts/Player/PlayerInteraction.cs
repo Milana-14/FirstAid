@@ -1,17 +1,18 @@
-using Mono.Cecil.Cil;
-using NUnit.Framework;
 using TMPro;
-using Unity.AI.Assistant.Agents;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerInteraction : MonoBehaviour
+public sealed class PlayerInteraction : MonoBehaviour
 {
-    [Header("RayHolder")]
-    [SerializeField] private Transform rayHolder;
+    private enum Hand
+    {
+        Left,
+        Right
+    }
 
     [Header("Ray")]
+    [SerializeField] private Transform rayHolder;
     [SerializeField] private float rayLength = 2f;
     [SerializeField] private LayerMask collisionLayers = Physics.DefaultRaycastLayers;
 
@@ -19,553 +20,453 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Image pointer;
     [SerializeField] private TextMeshProUGUI sign;
 
-    [Header("Placing")]
-    [SerializeField] private string placeable;
+    [Header("Hands")]
+    [SerializeField] private Vector3 rightHandPlacement = new(0.791f, 0.51f, 1.25f);
+    [SerializeField] private Vector3 leftHandPlacement = new(-0.791f, 0.51f, 1.18f);
+    [SerializeField] private Vector3 rightReadPlacement = new(0.537f, 0.796f, 0.77f);
+    [SerializeField] private Vector3 leftReadPlacement = new(-0.537f, 0.796f, 0.77f);
 
-    private bool isHoldingR = false;
-    private bool isHoldingL = false;
+    [Header("Pointer Colors")]
+    [SerializeField] private Color interactColor = Color.lightGreen;
+    [SerializeField] private Color pickUpColor = Color.yellowGreen;
+    [SerializeField] private Color readColor = Color.lawnGreen;
+    [SerializeField] private Color placeColor = Color.cyan;
 
-    private Transform leftheldObject;
-    private Transform rightheldObject;
+    private Transform leftHeldObject;
+    private Transform rightHeldObject;
 
-    private Vector3 rightHandPlacement = new(0.791f, 0.51f, 1.25f);
-    private Vector3 leftHandPlacement = new(-0.791f, 0.51f, 1.18f);
+    private string currentPromptKey;
 
-    private Vector3 rightReadPlacement = new(0.537f, 0.796f, 0.77f);
-    private Vector3 leftReadPlacement = new(-0.537f, 0.796f, 0.77f);
-
-    private string state;
-
-    private bool isHandled;
-
-    void Update()
+    private void Update()
     {
-        if (rayHolder == null)
+        if (rayHolder == null) return;
+
+        if (Physics.Raycast(rayHolder.position, rayHolder.forward, out RaycastHit hit, rayLength, collisionLayers))
+            HandleTarget(hit);
+        else 
+            HandleNoTarget();
+    }
+
+    private void HandleTarget(RaycastHit hit)
+    {
+        IInteractionHintProvider hintProvider = hit.transform.GetComponent<IInteractionHintProvider>() 
+                                                ?? hit.transform.GetComponentInParent<IInteractionHintProvider>();
+
+        if (hintProvider != null && !string.IsNullOrEmpty(hintProvider.HintKey))
         {
+            ShowPrompt(hintProvider.HintKey);
+        }
+        
+        InteractableObjects interactable = hit.transform.GetComponent<InteractableObjects>();
+
+        if (interactable == null) interactable = hit.transform.GetComponentInParent<InteractableObjects>();
+
+        if (interactable != null)
+        {
+            HandleInteractable(interactable);
             return;
         }
 
-        isHandled = false;
+        PickUp pickUp = hit.transform.GetComponent<PickUp>();
 
-        Ray ray = new Ray(rayHolder.position, rayHolder.forward);
+        if (pickUp == null) pickUp = hit.transform.GetComponentInParent<PickUp>();
 
-        if (Physics.Raycast(ray, out RaycastHit hit, rayLength, collisionLayers))
+        if (pickUp != null)
         {
-            InteractableObjects parentInteractable = hit.transform.parent != null ? hit.transform.parent.GetComponent<InteractableObjects>() : null;
-            Animator parentAnim = hit.transform.parent != null ? hit.transform.parent.GetComponent<Animator>() : null;
+            HandlePickUpTarget(pickUp);
+            return;
+        }
 
-            if (parentInteractable != null && parentAnim != null && hit.transform.GetComponent<Read>() == null)
-            {
-                Transform parentObj = hit.transform.parent;
-                isHandled = true;
-                state = parentInteractable.isActivated ? "затвориш" : "отвориш";
-                pointer.color = Color.lightGreen;
-                sign.text = $"Натисни E, за да {state}";
+        Read read = hit.transform.GetComponent<Read>();
 
-                if (Keyboard.current.eKey.wasPressedThisFrame)
-                {
-                    // the parent of the hit object is the one holding Animator + InteractableObjects
-                    Transform target = parentObj;
-                    Animator anim = parentAnim;
-                    InteractableObjects interactable = parentInteractable;
+        if (read == null) read = hit.transform.GetComponentInParent<Read>();
 
+        if (read != null)
+        {
+            HandleReadTarget(read);
+            return;
+        }
 
-                    interactable.Interact(target);
-                }
-            }
-            else if (hit.collider.GetComponent<PickUp>() != null)
-            {
-                isHandled = true;
-                pointer.color = Color.yellowGreen;
+        PlaceableObj placeable = hit.transform.GetComponent<PlaceableObj>();
 
-                if (!isHoldingL && !isHoldingR)
-                {
-                    sign.text = "Натисни E или Q, за да вземеш";
-                }
-                else if (isHoldingL && !isHoldingR)
-                {
-                    if (leftheldObject.transform.GetComponent<Read>() != null)
-                    {
-                        sign.text = "Натисни E, за да вземеш, или Q, за да върнеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни E, за да вземеш, или Q, за да пуснеш";
-                    }
-                }
-                else if (!isHoldingL && isHoldingR)
-                {
-                    if (rightheldObject.transform.GetComponent<Read>() != null)
-                    {
-                        sign.text = "Натисни Q, за да вземеш, или E, за да върнеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни Q, за да вземеш, или E, за да пуснеш";
-                    }
-                }
-                else
-                {
-                    sign.text = "Ръцете ти са пълни";
-                }
+        if (placeable == null) placeable = hit.transform.GetComponentInParent<PlaceableObj>();
 
-                if (Keyboard.current.eKey.wasPressedThisFrame)
-                {
-                    if (!isHoldingR)
-                    {
-                        hit.collider.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                        hit.collider.GetComponent<PickUp>().PickUpObject();
-                        isHoldingR = true;
-                        rightheldObject = hit.collider.transform;
-                    }
-                    else
-                    {
-                        if (rightheldObject.transform.GetComponent<Read>() != null)
-                        {
-                            rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
-                            rightheldObject.GetComponent<Read>().ReadObject();
-                        }
-                        else
-                        {
-                            rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                            rightheldObject.GetComponent<PickUp>().PickUpObject();
-                        }
-                        isHoldingR = false;
-                    }
-                }
+        if (placeable != null)
+        {
+            HandlePlaceableTarget(placeable);
+            return;
+        }
 
+        HidePrompt();
+        SetPointerColor(Color.white);
+    }
 
-                /*if(Mouse.current.rightButton.wasPressedThisFrame)
-                {
-                    if(!isHoldingR)
-                    {
-                        hit.collider.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                        hit.collider.GetComponent<PickUp>().PickUpObject();
-                        isHoldingR = true;
-                        rightheldObject = hit.collider.transform;
-                    } 
-                    else
-                    {
-                        rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                        rightheldObject.GetComponent<PickUp>().PickUpObject();
-                        isHoldingR = false;
-                    }
-                }*/
+    private void HandleInteractable(InteractableObjects interactable, string customPromptKey = null)
+    {
+        SetPointerColor(interactColor);
+        
+        string promptToKey = !string.IsNullOrEmpty(customPromptKey) ? customPromptKey : "Prompt_Interact";
+        ShowPrompt(promptToKey);
 
-                if (Keyboard.current.qKey.wasPressedThisFrame)
-                {
-                    if (!isHoldingL)
-                    {
-                        hit.collider.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                        hit.collider.GetComponent<PickUp>().PickUpObject();
-                        isHoldingL = true;
-                        leftheldObject = hit.collider.transform;
-                    }
-                    else
-                    {
-                        if (leftheldObject.transform.GetComponent<Read>() != null)
-                        {
-                            leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
-                            leftheldObject.GetComponent<Read>().ReadObject();
-                        }
-                        else
-                        {
-                            leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                            leftheldObject.GetComponent<PickUp>().PickUpObject();
-                        }
-                        isHoldingL = false;
-                    }
-                }
-            }
-            else if (hit.collider.GetComponent<Read>() != null)
-            {
-                isHandled = true;
-                pointer.color = Color.lawnGreen;
+        if (Keyboard.current.eKey.wasPressedThisFrame) interactable.Interact();
+    }
 
-                if (!isHoldingL && !isHoldingR)
-                {
-                    sign.text = "Натисни E или Q, за да четеш";
-                }
-                else if (isHoldingL && !isHoldingR)
-                {
-                    if (leftheldObject.transform.GetComponent<PickUp>() != null)
-                    {
-                        sign.text = "Натисни E, за да четеш, или Q, за да пуснеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни E, за да четеш, или Q, за да върнеш";
-                    }
-                }
-                else if (!isHoldingL && isHoldingR)
-                {
-                    if (rightheldObject.transform.GetComponent<Read>() != null)
-                    {
-                        sign.text = "Натисни Q, за да четеш, или E, за да върнеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни Q, за да четеш, или E, за да пуснеш";
-                    }
-                }
-                else
-                {
-                    sign.text = "Ръцете ти са пълни";
-                }
+    private void HandlePickUpTarget(PickUp target)
+    {
+        SetPointerColor(pickUpColor);
 
-                if (Keyboard.current.eKey.wasPressedThisFrame)
-                {
-                    if (!isHoldingR)
-                    {
-                        hit.collider.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
-                        hit.collider.GetComponent<Read>().ReadObject();
-                        isHoldingR = true;
-                        rightheldObject = hit.collider.transform;
-                    }
-                    else
-                    {
-                        if (rightheldObject.transform.GetComponent<Read>() != null)
-                        {
-                            rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
-                            rightheldObject.GetComponent<Read>().ReadObject();
-                        }
-                        else
-                        {
-                            rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                            rightheldObject.GetComponent<PickUp>().PickUpObject();
-                        }
-                        isHoldingR = false;
-                    }
-                }
+        bool rightHoldingTarget = rightHeldObject == target.transform;
+        bool leftHoldingTarget = leftHeldObject == target.transform;
 
-                if (Keyboard.current.qKey.wasPressedThisFrame)
-                {
-                    if (!isHoldingL)
-                    {
-                        hit.collider.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
-                        hit.collider.GetComponent<Read>().ReadObject();
-                        isHoldingL = true;
-                        leftheldObject = hit.collider.transform;
-                    }
-                    else
-                    {
-                        if (leftheldObject.transform.GetComponent<Read>() != null)
-                        {
-                            leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
-                            leftheldObject.GetComponent<Read>().ReadObject();
-                        }
-                        else
-                        {
-                            leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                            leftheldObject.GetComponent<PickUp>().PickUpObject();
-                        }
-                        isHoldingL = false;
-                    }
-                }
+        if (rightHoldingTarget)
+        {
+            ShowPrompt("Prompt_Drop_Right");
 
-            }
-            else if (hit.transform.tag == placeable)
-            {
-                isHandled = true;
-                pointer.color = Color.cyan;
+            if (Keyboard.current.eKey.wasPressedThisFrame) DropHeldObject(Hand.Right);
 
-                PlaceableObj placeableComponent = hit.transform.GetComponent<PlaceableObj>();
-                bool placeableFull = placeableComponent != null && placeableComponent.full;
+            return;
+        }
 
-                bool rightCanPlace = isHoldingR && rightheldObject.GetComponent<PlaceDown>() != null && !placeableFull;
-                bool leftCanPlace = isHoldingL && leftheldObject.GetComponent<PlaceDown>() != null && !placeableFull;
+        if (leftHoldingTarget)
+        {
+            ShowPrompt("Prompt_Drop_Left");
 
-                bool rightIsRead = isHoldingR && !rightCanPlace && rightheldObject.GetComponent<Read>() != null;
-                bool leftIsRead = isHoldingL && !leftCanPlace && leftheldObject.GetComponent<Read>() != null;
+            if (Keyboard.current.qKey.wasPressedThisFrame) DropHeldObject(Hand.Left);
 
-                string rightVerb = rightCanPlace ? "поставиш" : (rightIsRead ? "върнеш" : "пуснеш");
-                string leftVerb = leftCanPlace ? "поставиш" : (leftIsRead ? "върнеш" : "пуснеш");
+            return;
+        }
 
-                // Create status display
-                string statusDisplay = "";
-                if (placeableComponent != null)
-                {
-                    statusDisplay = $"\n[{placeableComponent.children}/3]";
-                    if (placeableFull)
-                    {
-                        statusDisplay += " Няма място";
-                    }
-                }
+        bool rightFree = rightHeldObject == null;
+        bool leftFree = leftHeldObject == null;
 
-                if (isHoldingR && isHoldingL)
-                {
-                    if (placeableFull)
-                    {
-                        sign.text = $"Няма място{statusDisplay}";
-                    }
-                    else
-                    {
-                        sign.text = $"Натисни E, за да {rightVerb}, или Q, за да {leftVerb}{statusDisplay}";
-                    }
-                }
-                else if (isHoldingR)
-                {
-                    if (placeableFull)
-                    {
-                        sign.text = $"Няма място{statusDisplay}";
-                    }
-                    else
-                    {
-                        sign.text = $"Натисни E, за да {rightVerb}{statusDisplay}";
-                    }
-                }
-                else if (isHoldingL)
-                {
-                    if (placeableFull)
-                    {
-                        sign.text = $"Няма място{statusDisplay}";
-                    }
-                    else
-                    {
-                        sign.text = $"Натисни Q, за да {leftVerb}{statusDisplay}";
-                    }
-                }
-                else
-                {
-                    pointer.color = Color.white;
-                    sign.text = statusDisplay != "" ? statusDisplay.Substring(1) : string.Empty;
-                }
+        if (rightFree && leftFree)
+        {
+            ShowPrompt("Prompt_PickUp_TwoHands");
 
-                if (Keyboard.current.eKey.wasPressedThisFrame && isHoldingR)
-                {
-                    if (rightCanPlace)
-                    {
-                        rightheldObject.GetComponent<PlaceDown>().Place(hit.transform);
-                    }
-                    else if (rightIsRead)
-                    {
-                        rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
-                        rightheldObject.GetComponent<Read>().ReadObject();
-                    }
-                    else
-                    {
-                        rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                        rightheldObject.GetComponent<PickUp>().PickUpObject();
-                    }
-                    isHoldingR = false;
-                    rightheldObject = null;
-                }
+            if (Keyboard.current.eKey.wasPressedThisFrame) PickUpObject(target, Hand.Right);
 
-                if (Keyboard.current.qKey.wasPressedThisFrame && isHoldingL)
-                {
-                    if (leftCanPlace)
-                    {
-                        leftheldObject.GetComponent<PlaceDown>().Place(hit.transform);
-                    }
-                    else if (leftIsRead)
-                    {
-                        leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
-                        leftheldObject.GetComponent<Read>().ReadObject();
-                    }
-                    else
-                    {
-                        leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                        leftheldObject.GetComponent<PickUp>().PickUpObject();
-                    }
-                    isHoldingL = false;
-                    leftheldObject = null;
-                }
-            }
-            else if (isHandled == false)
-            {
-                bool leftIsRead = false;
-                bool rightIsRead = false;
+            if (Keyboard.current.qKey.wasPressedThisFrame) PickUpObject(target, Hand.Left);
 
-                if (leftheldObject != null)
-                {
-                    leftIsRead = leftheldObject.transform.GetComponent<Read>() != null;
-                }
-                if (rightheldObject != null)
-                {
-                    rightIsRead = rightheldObject.transform.GetComponent<Read>() != null;
-                }
+            return;
+        }
 
-                pointer.color = Color.white;
-                if (!isHoldingL && !isHoldingR)
-                {
-                    sign.text = string.Empty;
-                }
-                else if (isHoldingL && isHoldingR)
-                {
-                    if (leftIsRead && rightIsRead)
-                    {
-                        sign.text = "Натисни E или Q, за да върнеш";
-                    }
-                    else if (leftIsRead && !rightIsRead)
-                    {
-                        sign.text = "Натисни Q, за да върнеш, или E, за да пуснеш";
-                    }
-                    else if (!leftIsRead && rightIsRead)
-                    {
-                        sign.text = "Натисни Q, за да пуснеш, или E, за да върнеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни E или Q, за да пуснеш";
-                    }
+        if (rightFree)
+        {
+            ShowPrompt("Prompt_PickUp_Right");
 
-                }
-                else if (isHoldingL && !isHoldingR)
-                {
-                    if (leftIsRead)
-                    {
-                        sign.text = "Натисни Q, за да върнеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни Q, за да пуснеш";
-                    }
-                }
-                else if (!isHoldingL && isHoldingR)
-                {
-                    if (rightIsRead)
-                    {
-                        sign.text = "Натисни E, за да върнеш";
-                    }
-                    else
-                    {
-                        sign.text = "Натисни E, за да пуснеш";
-                    }
-                }
+            if (Keyboard.current.eKey.wasPressedThisFrame) PickUpObject(target, Hand.Right);
 
-                if (Keyboard.current.eKey.wasPressedThisFrame)
-                {
-                    if (isHoldingR && rightheldObject.transform.GetComponent<Read>() == null)
-                    {
-                        rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                        rightheldObject.GetComponent<PickUp>().PickUpObject();
-                        isHoldingR = false;
-                    }
-                    else if (isHoldingR && rightheldObject.transform.GetComponent<Read>() != null)
-                    {
-                        rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
-                        rightheldObject.GetComponent<Read>().ReadObject();
-                        isHoldingR = false;
-                    }
-                }
-                if (Keyboard.current.qKey.wasPressedThisFrame)
-                {
-                    if (isHoldingL && leftheldObject.transform.GetComponent<Read>() == null)
-                    {
-                        leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                        leftheldObject.GetComponent<PickUp>().PickUpObject();
-                        isHoldingL = false;
-                    }
-                    else if (isHoldingL && leftheldObject.transform.GetComponent<Read>() != null)
-                    {
-                        leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
-                        leftheldObject.GetComponent<Read>().ReadObject();
-                        isHoldingL = false;
-                    }
-                }
-            }
+            return;
+        }
+
+        if (leftFree)
+        {
+            ShowPrompt("Prompt_PickUp_Left");
+
+            if (Keyboard.current.qKey.wasPressedThisFrame) PickUpObject(target, Hand.Left);
+
+            return;
+        }
+
+        ShowPrompt("Prompt_HandsFull");
+    }
+
+    private void HandleReadTarget(Read target)
+    {
+        SetPointerColor(readColor);
+
+        bool rightHoldingTarget = rightHeldObject == target.transform;
+        bool leftHoldingTarget = leftHeldObject == target.transform;
+
+        if (rightHoldingTarget)
+        {
+            ShowPrompt("Prompt_Return_Right");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame) ReturnReadObject(Hand.Right);
+
+            return;
+        }
+
+        if (leftHoldingTarget)
+        {
+            ShowPrompt("Prompt_Return_Left");
+
+            if (Keyboard.current.qKey.wasPressedThisFrame) ReturnReadObject(Hand.Left);
+
+            return;
+        }
+
+        bool rightFree = rightHeldObject == null;
+        bool leftFree = leftHeldObject == null;
+
+        if (rightFree && leftFree)
+        {
+            ShowPrompt("Prompt_Read_TwoHands");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame) ReadObject(target, Hand.Right);
+            if (Keyboard.current.qKey.wasPressedThisFrame) ReadObject(target, Hand.Left);
+
+            return;
+        }
+
+        if (rightFree)
+        {
+            ShowPrompt("Prompt_Read_Right");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame) ReadObject(target, Hand.Right);
+
+            return;
+        }
+
+        if (leftFree)
+        {
+            ShowPrompt("Prompt_Read_Left");
+
+            if (Keyboard.current.qKey.wasPressedThisFrame) ReadObject(target, Hand.Left);
+
+            return;
+        }
+
+        ShowPrompt("Prompt_HandsFull");
+    }
+
+    private void HandlePlaceableTarget(PlaceableObj placeable)
+    {
+        SetPointerColor(placeColor);
+
+        bool rightHolding = rightHeldObject != null;
+        bool leftHolding = leftHeldObject != null;
+
+        if (!placeable.HasFreePosition)
+        {
+            ShowPrompt("Prompt_NoRoom", placeable.CurrentCount, placeable.Capacity);
+            return;
+        }
+
+        bool rightCanPlace = rightHolding && rightHeldObject.GetComponent<PlaceDown>() != null;
+        bool leftCanPlace = leftHolding && leftHeldObject.GetComponent<PlaceDown>() != null;
+        bool rightIsRead = rightHolding && rightHeldObject.GetComponent<Read>() != null;
+        bool leftIsRead = leftHolding && leftHeldObject.GetComponent<Read>() != null;
+
+        if (rightCanPlace && leftCanPlace)
+        {
+            ShowPrompt("Prompt_Place_TwoHands");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Right);
+
+            if (Keyboard.current.qKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Left);
+
+            return;
+        }
+
+        if (rightCanPlace)
+        {
+            ShowPrompt("Prompt_Place_Right");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Right);
+
+            return;
+        }
+
+        if (leftCanPlace)
+        {
+            ShowPrompt("Prompt_Place_Left");
+
+            if (Keyboard.current.qKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Left);
+
+            return;
+        }
+
+        if (rightIsRead)
+        {
+            ShowPrompt("Prompt_Return_Right");
+
+            if (Keyboard.current.eKey.wasPressedThisFrame) ReturnReadObject(Hand.Right);
+
+            return;
+        }
+
+        if (leftIsRead)
+        {
+            ShowPrompt("Prompt_Return_Left");
+
+            if (Keyboard.current.qKey.wasPressedThisFrame) ReturnReadObject(Hand.Left);
+
+            return;
+        }
+
+        HidePrompt();
+    }
+
+    private void HandleNoTarget()
+    {
+        SetPointerColor(Color.white);
+
+        bool rightHolding = rightHeldObject != null;
+        bool leftHolding = leftHeldObject != null;
+
+        if (!rightHolding && !leftHolding)
+        {
+            HidePrompt();
+            return;
+        }
+
+        if (rightHolding && leftHolding)
+        {
+            bool rightIsRead = IsReadObject(rightHeldObject);
+            bool leftIsRead = IsReadObject(leftHeldObject);
+
+            if (rightIsRead && leftIsRead) ShowPrompt("Prompt_Return_TwoHands");
+            else if (rightIsRead) ShowPrompt("Prompt_Return_Right_Drop_Left");
+            else if (leftIsRead) ShowPrompt("Prompt_Drop_Right_Return_Left");
+            else ShowPrompt("Prompt_Drop_TwoHands");
+        }
+        else if (rightHolding)
+        {
+            if (IsReadObject(rightHeldObject)) ShowPrompt("Prompt_Return_Right");
+            else ShowPrompt("Prompt_Drop_Right");
         }
         else
         {
-            bool leftIsRead = false;
-            bool rightIsRead = false;
-
-            if (leftheldObject != null)
-            {
-                leftIsRead = leftheldObject.transform.GetComponent<Read>() != null;
-            }
-            if (rightheldObject != null)
-            {
-                rightIsRead = rightheldObject.transform.GetComponent<Read>() != null;
-            }
-
-            pointer.color = Color.white;
-            if (!isHoldingL && !isHoldingR)
-            {
-                sign.text = string.Empty;
-            }
-            else if (isHoldingL && isHoldingR)
-            {
-                if (leftIsRead && rightIsRead)
-                {
-                    sign.text = "Натисни E или Q, за да върнеш";
-                }
-                else if (leftIsRead && !rightIsRead)
-                {
-                    sign.text = "Натисни Q, за да върнеш, или E, за да пуснеш";
-                }
-                else if (!leftIsRead && rightIsRead)
-                {
-                    sign.text = "Натисни Q, за да пуснеш, или E, за да върнеш";
-                }
-                else
-                {
-                    sign.text = "Натисни E или Q, за да пуснеш";
-                }
-
-            }
-            else if (isHoldingL && !isHoldingR)
-            {
-                if (leftIsRead)
-                {
-                    sign.text = "Натисни Q, за да върнеш";
-                }
-                else
-                {
-                    sign.text = "Натисни Q, за да пуснеш";
-                }
-            }
-            else if (!isHoldingL && isHoldingR)
-            {
-                if (rightIsRead)
-                {
-                    sign.text = "Натисни E, за да върнеш";
-                }
-                else
-                {
-                    sign.text = "Натисни E, за да пуснеш";
-                }
-            }
-
-            if (Keyboard.current.eKey.wasPressedThisFrame)
-            {
-                if (isHoldingR && rightheldObject.transform.GetComponent<Read>() == null)
-                {
-                    rightheldObject.GetComponent<PickUp>().pickupLocalPosition = rightHandPlacement;
-                    rightheldObject.GetComponent<PickUp>().PickUpObject();
-                    isHoldingR = false;
-                }
-                else if (isHoldingR && rightheldObject.transform.GetComponent<Read>() != null)
-                {
-                    rightheldObject.GetComponent<Read>().pickupLocalPosition = rightReadPlacement;
-                    rightheldObject.GetComponent<Read>().ReadObject();
-                    isHoldingR = false;
-                }
-            }
-            if (Keyboard.current.qKey.wasPressedThisFrame)
-            {
-                if (isHoldingL && leftheldObject.transform.GetComponent<Read>() == null)
-                {
-                    leftheldObject.GetComponent<PickUp>().pickupLocalPosition = leftHandPlacement;
-                    leftheldObject.GetComponent<PickUp>().PickUpObject();
-                    isHoldingL = false;
-                }
-                else if (isHoldingL && leftheldObject.transform.GetComponent<Read>() != null)
-                {
-                    leftheldObject.GetComponent<Read>().pickupLocalPosition = leftReadPlacement;
-                    leftheldObject.GetComponent<Read>().ReadObject();
-                    isHoldingL = false;
-                }
-            }
+            if (IsReadObject(leftHeldObject)) ShowPrompt("Prompt_Return_Left");
+            else ShowPrompt("Prompt_Drop_Left");
         }
+
+        if (Keyboard.current.eKey.wasPressedThisFrame && rightHolding) DropOrReturn(Hand.Right);
+        if (Keyboard.current.qKey.wasPressedThisFrame && leftHolding) DropOrReturn(Hand.Left);
+    }
+
+    private void PickUpObject(PickUp pickUp, Hand hand)
+    {
+        if (GetHeldObject(hand) != null) return;
+
+        pickUp.SetPickupPosition(GetHandPosition(hand));
+        pickUp.PickUpObject();
+
+        SetHeldObject(hand, pickUp.transform);
+    }
+
+    private void ReadObject(Read read, Hand hand)
+    {
+        if (GetHeldObject(hand) != null) return;
+
+        read.SetReadPosition(GetReadPosition(hand));
+        read.ReadObject();
+
+        SetHeldObject(hand, read.transform);
+    }
+
+    private void PlaceHeldObject(PlaceableObj placeable, Hand hand)
+    {
+        Transform heldObject = GetHeldObject(hand);
+
+        if (heldObject == null) return;
+
+        PlaceDown placeDown = heldObject.GetComponent<PlaceDown>();
+
+        if (placeDown == null) return;
+
+        placeDown.Place(placeable.transform);
+        ClearHeldObject(hand);
+    }
+
+    private void ReturnReadObject(Hand hand)
+    {
+        Transform heldObject = GetHeldObject(hand);
+
+        if (heldObject == null) return;
+
+        Read read = heldObject.GetComponent<Read>();
+
+        if (read == null) return;
+
+        read.ReadObject();
+        ClearHeldObject(hand);
+    }
+
+    private void DropOrReturn(Hand hand)
+    {
+        Transform heldObject = GetHeldObject(hand);
+
+        if (heldObject == null) return;
+
+        if (IsReadObject(heldObject)) ReturnReadObject(hand);
+        else DropHeldObject(hand);
+    }
+
+    private void DropHeldObject(Hand hand)
+    {
+        Transform heldObject = GetHeldObject(hand);
+
+        if (heldObject == null) return;
+
+        PickUp pickUp = heldObject.GetComponent<PickUp>();
+
+        if (pickUp != null) pickUp.Drop();
+
+        ClearHeldObject(hand);
+    }
+
+    private bool IsReadObject(Transform target)
+    {
+        Read read = target.GetComponent<Read>();
+        return read != null && read.IsReading;
+    }
+
+    private Transform GetHeldObject(Hand hand)
+    {
+        return hand == Hand.Right ? rightHeldObject : leftHeldObject;
+    }
+
+    private void SetHeldObject(Hand hand, Transform target)
+    {
+        if (hand == Hand.Right) rightHeldObject = target;
+        else leftHeldObject = target;
+    }
+
+    private void ClearHeldObject(Hand hand)
+    {
+        if (hand == Hand.Right) rightHeldObject = null;
+        else leftHeldObject = null;
+    }
+
+    private Vector3 GetHandPosition(Hand hand)
+    {
+        return hand == Hand.Right ? rightHandPlacement : leftHandPlacement;
+    }
+
+    private Vector3 GetReadPosition(Hand hand)
+    {
+        return hand == Hand.Right ? rightReadPlacement : leftReadPlacement;
+    }
+
+    private void ShowPrompt(string key, params object[] args)
+    {
+        if (sign == null) return;
+        if (key == currentPromptKey) return;
+
+        currentPromptKey = key;
+
+        LocalizationService.Instance.GetLocalizedStringWithArgs("UI_Table", key, args, localizedText => sign.text = localizedText);
+    }
+
+    private void HidePrompt()
+    {
+        if (sign == null) return;
+        if (string.IsNullOrEmpty(currentPromptKey)) return;
+
+        currentPromptKey = string.Empty;
+        sign.text = string.Empty;
+    }
+
+    private void SetPointerColor(Color color)
+    {
+        if (pointer != null) pointer.color = color;
     }
 
     private void OnDrawGizmosSelected()
     {
-        if (rayHolder == null)
-        {
-            return;
-        }
+        if (rayHolder == null) return;
 
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(rayHolder.position, rayHolder.forward * rayLength);

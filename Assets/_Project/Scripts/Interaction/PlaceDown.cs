@@ -1,49 +1,47 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceDown : MonoBehaviour
+[RequireComponent(typeof(PickUp))]
+[RequireComponent(typeof(Rigidbody))]
+public sealed class PlaceDown : MonoBehaviour
 {
-    private Transform placeableObj;
-    bool isPlaced = false;
-    private Quaternion initialRotation;
-    private Vector3 initialScale;
+    private PickUp pickUp;
+    private Rigidbody rb;
+
+    private bool isPlaced;
 
     private void Awake()
     {
-        //initialRotation = transform.rotation;
-        initialScale = transform.localScale;
+        pickUp = GetComponent<PickUp>();
+        rb = GetComponent<Rigidbody>();
     }
-
-    private void Update()
-    {
-        if(transform.GetComponent<PickUp>().enabled == true)
-        {
-            isPlaced = false;
-        }
-    }
-
+    
     public void Place(Transform placeableObj)
     {
-        if (placeableObj != null)
-        {
-            if (!isPlaced && placeableObj.GetComponent<PlaceableObj>() != null && !placeableObj.GetComponent<PlaceableObj>().full)
-            {
-                PickUp pickupComponent = transform.GetComponent<PickUp>();
+        if (placeableObj == null || isPlaced) return;
 
-                if (pickupComponent.ispickedUp)
-                {
-                    pickupComponent.PickUpObject();
-                }
+        PlaceableObj placeable = placeableObj.GetComponent<PlaceableObj>();
 
-                transform.SetParent(placeableObj, false);
-                transform.localScale = Vector3.one;
-                transform.localRotation = Quaternion.identity;
-                transform.localPosition = placeableObj.GetComponent<PlaceableObj>().getPPos();
+        if (placeable == null) return;
+        if (!placeable.TryGetPosition(out Vector3 position)) return;
+        if (!pickUp.IsPickedUp) return;
 
-                transform.GetComponent<Rigidbody>().isKinematic = true;
-                isPlaced = true;
+        pickUp.Drop();
 
-            }
-        }
+        transform.SetParent(placeableObj, false);
+        transform.localPosition = position;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+
+        rb.isKinematic = true;
+        isPlaced = true;
+    }
+
+    public void RemoveFromPlace()
+    {
+        if (!isPlaced) return;
+
+        isPlaced = false;
+        transform.SetParent(null, true);
+        rb.isKinematic = false;
     }
 }

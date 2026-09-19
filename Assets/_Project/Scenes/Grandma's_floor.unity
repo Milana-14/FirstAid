@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 60692102}
   - component: {fileID: 60692101}
   - component: {fileID: 60692103}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,14 +478,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1d3f8fc82b43249b13d8aa222438ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  rayHolder: {fileID: 1565308295}
-  rayLength: 4.5
+  rayHolder: {fileID: 60692100}
+  rayLength: 3.5
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 131003
+    m_Bits: 130875
   pointer: {fileID: 2129554372}
   sign: {fileID: 944153933}
-  placeable: Placeable
+  rightHandPlacement: {x: 0.791, y: 0.51, z: 1.25}
+  leftHandPlacement: {x: -0.791, y: 0.51, z: 1.18}
+  rightReadPlacement: {x: 0.537, y: 0.796, z: 0.77}
+  leftReadPlacement: {x: -0.537, y: 0.796, z: 0.77}
+  interactColor: {r: 0.5647059, g: 0.9333334, b: 0.5647059, a: 1}
+  pickUpColor: {r: 0.5945814, g: 0.8238993, b: 0.12695287, a: 1}
+  readColor: {r: 0.4862745, g: 0.9882354, b: 0, a: 1}
+  placeColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &65538908
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +502,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65538909}
+  - component: {fileID: 65538912}
+  - component: {fileID: 65538911}
+  - component: {fileID: 65538910}
   m_Layer: 0
   m_Name: Phone
   m_TagString: Untagged
@@ -519,6 +529,69 @@ Transform:
   - {fileID: 8300077898376991575}
   m_Father: {fileID: 2598595780305079092}
   m_LocalEulerAnglesHint: {x: -180, y: -14.330017, z: -180}
+--- !u!65 &65538910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65538908}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9999999, y: 0.28519833, z: 1.8385564}
+  m_Center: {x: -0.0000000040133, y: 0.054980867, z: -0.30632296}
+--- !u!114 &65538911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65538908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d24530198e85c744892ccbb0946a9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickUp
+  parent: {fileID: 60692100}
+  smoothSpeed: 8
+  pickupLocalPosition: {x: 0, y: 0, z: 0}
+--- !u!54 &65538912
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65538908}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &68942455
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +694,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &87636547
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +765,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &91722899
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,8 +921,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 146488258}
-  - component: {fileID: 146488260}
   - component: {fileID: 146488259}
+  - component: {fileID: 146488260}
   m_Layer: 0
   m_Name: Panta_Shkaf2
   m_TagString: Untagged
@@ -903,7 +980,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 146488259}
+  openState: Open_Panta_Shkaf2
+  closeState: Close_Panta_Shkaf2
 --- !u!1 &155820790
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,7 +1051,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 155820792}
+  openState: Open_Panta_Wood2
+  closeState: Close_Panta_Wood2
 --- !u!1 &193227966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &303999662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,7 +1365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &317595261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,7 +1621,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickUp
   parent: {fileID: 60692100}
   smoothSpeed: 8
-  ispickedUp: 0
   pickupLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &363251139
 Rigidbody:
@@ -1822,7 +1906,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &530232276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,8 +1918,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 530232277}
-  - component: {fileID: 530232279}
   - component: {fileID: 530232278}
+  - component: {fileID: 530232280}
   m_Layer: 0
   m_Name: Panta_ShkafNew2
   m_TagString: Untagged
@@ -1879,7 +1965,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &530232279
+--- !u!114 &530232280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1891,7 +1977,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 530232278}
+  openState: Open_Panta_ShkafNew2
+  closeState: Close_Panta_ShkafNew2
 --- !u!1 &540349330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,7 +2082,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &557041644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,7 +2358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 577877292}
+  openState: Open_Panta4
+  closeState: Close_Panta4
 --- !u!95 &577877292
 Animator:
   serializedVersion: 7
@@ -2359,7 +2451,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 581122497}
+  openState: 
+  closeState: 
 --- !u!1 &624204615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,7 +2690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 660066430}
+  openState: Open_Panta3
+  closeState: Close_Panta3
 --- !u!95 &660066430
 Animator:
   serializedVersion: 7
@@ -2740,7 +2836,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &706797927
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,7 +3390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 757645229}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3325,7 +3423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761775314}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9292,7 +9390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &953409906
 GameObject:
   m_ObjectHideFlags: 0
@@ -9404,7 +9504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &999341628
 GameObject:
   m_ObjectHideFlags: 0
@@ -14410,7 +14512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1033400352}
   - component: {fileID: 1033400354}
-  - component: {fileID: 1033400353}
+  - component: {fileID: 1033400356}
   m_Layer: 0
   m_Name: Panta_ShkafNew1
   m_TagString: Untagged
@@ -14434,19 +14536,6 @@ Transform:
   - {fileID: 6048487691513459906}
   m_Father: {fileID: 1911635109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1033400353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033400351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
 --- !u!95 &1033400354
 Animator:
   serializedVersion: 7
@@ -14469,6 +14558,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1033400356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033400351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
+  animator: {fileID: 1033400354}
+  openState: Open_Panta_ShkafNew1
+  closeState: Close_Panta_ShkafNew1
 --- !u!1 &1033478421
 GameObject:
   m_ObjectHideFlags: 0
@@ -14539,7 +14643,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 1033478423}
+  openState: Open_Panta_Shkaf1
+  closeState: Close_Panta_Shkaf1
 --- !u!23 &1033478425
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21269,7 +21375,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &1497067691
 GameObject:
   m_ObjectHideFlags: 0
@@ -21627,7 +21735,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 1521091952}
+  openState: Open_Shkaf3
+  closeState: Close_Shkaf3
 --- !u!1 &1560456293
 GameObject:
   m_ObjectHideFlags: 0
@@ -21716,7 +21826,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565308295}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RayHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21806,7 +21916,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &1585460504
 GameObject:
   m_ObjectHideFlags: 0
@@ -22317,7 +22429,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &1712860517
 GameObject:
   m_ObjectHideFlags: 0
@@ -22466,7 +22580,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 1719081107}
+  openState: 
+  closeState: 
 --- !u!1 &1720910906
 GameObject:
   m_ObjectHideFlags: 0
@@ -22509,7 +22625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1731064458}
   - component: {fileID: 1731064459}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ObjectHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22612,7 +22728,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 0}
+  openState: 
+  closeState: 
 --- !u!1 &1776035559
 GameObject:
   m_ObjectHideFlags: 0
@@ -22691,7 +22809,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 1803546881}
+  openState: Open_Panta_010
+  closeState: Close_Panta_010
 --- !u!95 &1803546881
 Animator:
   serializedVersion: 7
@@ -22931,7 +23051,7 @@ GameObject:
   - component: {fileID: 1880345486}
   - component: {fileID: 1880345488}
   - component: {fileID: 1880345487}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -23633,7 +23753,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 2041696655}
+  openState: Open_Panta_Wood2_2
+  closeState: Close_Panta_Wood2_2
 --- !u!1 &2054350866
 GameObject:
   m_ObjectHideFlags: 0
@@ -29482,6 +29604,9 @@ GameObject:
   - component: {fileID: 3836519572448036279}
   - component: {fileID: 2394301665816045820}
   - component: {fileID: 8859978975587552856}
+  - component: {fileID: 8859978975587552859}
+  - component: {fileID: 8859978975587552858}
+  - component: {fileID: 8859978975587552857}
   m_Layer: 0
   m_Name: Object_18
   m_TagString: Untagged
@@ -54333,8 +54458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151213a702145374aa62415decd41175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableObj
-  children: 0
-  full: 0
 --- !u!33 &5802279549833214772
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -54548,7 +54671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a070836ecbc9c4ca5e133ca8c00847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
-  isActivated: 0
+  animator: {fileID: 5838717815748104076}
+  openState: Open_Pin
+  closeState: Close_Pin
 --- !u!33 &5839411591981810975
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -65514,7 +65639,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickUp
   parent: {fileID: 60692100}
   smoothSpeed: 8
-  ispickedUp: 0
   pickupLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &7966782988759928660
 Rigidbody:
@@ -66728,7 +66852,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickUp
   parent: {fileID: 60692100}
   smoothSpeed: 8
-  ispickedUp: 0
   pickupLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &8136672900061712502
 Rigidbody:
@@ -70368,6 +70491,69 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8859978975587552857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059808272950615167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d24530198e85c744892ccbb0946a9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickUp
+  parent: {fileID: 60692100}
+  smoothSpeed: 8
+  pickupLocalPosition: {x: 0, y: 0, z: 0}
+--- !u!54 &8859978975587552858
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059808272950615167}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8859978975587552859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059808272950615167}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0031748016, y: 0.0042760475, z: 0.010568138}
+  m_Center: {x: 0.00014939175, y: -0.00064994115, z: 0.00041161003}
 --- !u!4 &8864786449857124089
 Transform:
   m_ObjectHideFlags: 0
@@ -70596,7 +70782,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickUp
   parent: {fileID: 60692100}
   smoothSpeed: 8
-  ispickedUp: 0
   pickupLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &8919792548725996228
 Transform:
@@ -72034,9 +72219,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Read
   parent: {fileID: 60692100}
+  pin: {fileID: 4370062924494829184}
   smoothSpeed: 8
-  ispickedUp: 0
   pickupLocalPosition: {x: 0, y: 0, z: 0}
+  readRotation: {x: 0, y: -180, z: 0}
+  pinAnimationDelay: 0.25
 --- !u!54 &9102331470817193093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -72434,7 +72621,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickUp
   parent: {fileID: 60692100}
   smoothSpeed: 8
-  ispickedUp: 0
   pickupLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &9126607004606849047
 Rigidbody:

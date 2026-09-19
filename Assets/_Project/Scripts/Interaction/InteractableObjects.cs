@@ -1,26 +1,21 @@
 using UnityEngine;
 
-public class 
-    InteractableObjects : MonoBehaviour
+public sealed class InteractableObjects : MonoBehaviour
 {
-    [Header("Interaction Settings")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string openState;
+    [SerializeField] private string closeState;
 
-    public bool isActivated = false; 
-
-    public void Interact(Transform obj)
+    private bool isOpen;
+    
+    private void Awake()
     {
-        Animator anim = obj.GetComponent<Animator>();
+        if (animator == null) animator = GetComponent<Animator>();
+    }
 
-        if (!isActivated)
-        {
-            isActivated = true;
-            anim.Play($"Open_{obj.name}");
-        }
-        else if (isActivated)
-        {
-            isActivated = false;
-            anim.Play($"Close_{obj.name}");
-        }
-
+    public void Interact()
+    {
+        isOpen = !isOpen;
+        animator.Play(isOpen ? openState : closeState);
     }
 }

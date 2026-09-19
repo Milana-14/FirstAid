@@ -1,104 +1,117 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
-public class Read : MonoBehaviour
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
+public sealed class Read : MonoBehaviour
 {
-    [SerializeField] public Transform parent;
+    [SerializeField] private Transform parent;
+    [SerializeField] private Transform pin;
     [SerializeField] private float smoothSpeed = 8f;
-    public bool ispickedUp = false;
+    [SerializeField] private Vector3 pickupLocalPosition;
+    [SerializeField] private Vector3 readRotation = new(0f, -180f, 0f);
+    [SerializeField] private float pinAnimationDelay = 0.25f;
 
+    private Transform initialParent;
     private Vector3 initialPosition;
     private Vector3 initialScale;
     private Quaternion initialRotation;
+
     private Collider col;
     private Rigidbody rb;
 
-    public Vector3 pickupLocalPosition;
-    private Quaternion readRotation = Quaternion.Euler(0, -180, 0);
-
-    private Transform pin;
+    public bool IsReading { get; private set; }
 
     private void Awake()
     {
-        pin = transform.parent;
+        initialParent = transform.parent;
+        initialPosition = transform.position;
         initialScale = transform.lossyScale;
         initialRotation = transform.rotation;
-        initialPosition = transform.position;
+
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+
+        if (pin == null) pin = initialParent;
     }
 
     private void Update()
     {
-        if (ispickedUp)
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, pickupLocalPosition, smoothSpeed * Time.deltaTime);
+        if (!IsReading) return;
 
-            Vector3 parentScale = parent.lossyScale;
-            transform.localScale = new Vector3(
-                initialScale.x / parentScale.x,
-                initialScale.y / parentScale.y,
-                initialScale.z / parentScale.z
-            );
-        }
+        transform.localPosition = Vector3.Lerp(transform.localPosition, pickupLocalPosition, smoothSpeed * Time.deltaTime);
+        Vector3 parentScale = parent.lossyScale;
+        transform.localScale = new Vector3(initialScale.x / parentScale.x, initialScale.y / parentScale.y, initialScale.z / parentScale.z );
     }
 
     public void ReadObject()
     {
-        if (!ispickedUp)
-        {
-            ispickedUp = true;
-
-            transform.SetParent(null, true);
-            pin.GetComponent<InteractableObjects>().Interact(pin);
-            StartCoroutine(WaitForAnim(false)); // pin deactivates only after the wait, inside the coroutine
-
-            if (col != null) col.enabled = false;
-            if (rb != null) rb.isKinematic = true;
-
-            transform.SetParent(parent, false);
-            transform.localRotation = readRotation;
-
-            Vector3 parentScale = parent.lossyScale;
-            transform.localScale = new Vector3(
-                initialScale.x / parentScale.x,
-                initialScale.y / parentScale.y,
-                initialScale.z / parentScale.z
-            );
-        }
-        else
-        {
-            ispickedUp = false;
-
-            pin.gameObject.SetActive(true);
-            pin.GetComponent<InteractableObjects>().Interact(pin);
-            StartCoroutine(WaitForAnim(true)); // already active, but harmless to reaffirm after wait
-
-            transform.SetParent(null, true);
-
-            transform.position = initialPosition;
-            transform.rotation = initialRotation;
-            transform.localScale = initialScale;
-
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-                rb.position = initialPosition;
-                rb.rotation = initialRotation;
-                Physics.SyncTransforms();
-            }
-
-            if (col != null) col.enabled = true;
-
-            //transform.SetParent(pin, true);
-        }
+        if (!IsReading) StartReading();
+        else StopReading();
     }
 
-    private IEnumerator WaitForAnim(bool activateAfter)
+    private void StartReading()
     {
-        yield return new WaitForSeconds(0.25f); 
+        IsReading = true;
 
-        pin.gameObject.SetActive(activateAfter);
+        transform.SetParent(null, true);
+
+        InteractableObjects interactable = pin.GetComponent<InteractableObjects>();
+
+        if (interactable != null) interactable.Interact();
+        StartCoroutine(SetPinActiveAfterDelay(false));
+
+        col.enabled = false;
+        rb.isKinematic = true;
+
+        transform.SetParent(parent, false);
+        transform.localRotation = Quaternion.Euler(readRotation);
+
+        ApplyParentScale();
+    }
+
+    private void StopReading()
+    {
+        IsReading = false;
+
+        pin.gameObject.SetActive(true);
+
+        InteractableObjects interactable = pin.GetComponent<InteractableObjects>();
+
+        if (interactable != null) interactable.Interact();
+
+        StartCoroutine(SetPinActiveAfterDelay(true));
+
+        transform.SetParent(null, true);
+
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+        transform.localScale = initialScale;
+
+        rb.isKinematic = true;
+        rb.position = initialPosition;
+        rb.rotation = initialRotation;
+
+        col.enabled = true;
+
+        Physics.SyncTransforms();
+    }
+
+    private void ApplyParentScale()
+    {
+        Vector3 parentScale = parent.lossyScale;
+        transform.localScale = new Vector3(initialScale.x / parentScale.x, initialScale.y / parentScale.y, initialScale.z / parentScale.z );
+    }
+
+    private IEnumerator SetPinActiveAfterDelay(bool active)
+    {
+        yield return new WaitForSeconds(pinAnimationDelay);
+
+        if (pin != null) pin.gameObject.SetActive(active);
+    }
+    
+    public void SetReadPosition(Vector3 position)
+    {
+        pickupLocalPosition = position;
     }
 }

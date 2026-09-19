@@ -28,21 +28,107 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 223635832833
-    m_Localized: 'The ambulance arrived on time thanks to your help. However {patientName}
-      has: {complications}.'
+    m_Localized: 'The ambulance arrived on time thanks to your help. However, {patientName}
+      developed: {complications}.'
     m_Metadata:
       m_Items: []
   - m_Id: 223635832834
-    m_Localized: Great job! Condition stabilized. {patientName} has no complications.
+    m_Localized: Great job! The condition has been stabilized. {patientName} has
+      no complications.
     m_Metadata:
       m_Items: []
   - m_Id: 223635832835
-    m_Localized: 'Condition stabilized. However {patientName} developed complications:
-      {complications}.'
+    m_Localized: 'The condition has been stabilized. However, {patientName} developed
+      the following complications: {complications}.'
     m_Metadata:
       m_Items: []
   - m_Id: 223635832836
-    m_Localized: Unfortunately the patient passed away. {patientName} died from {deathCause}.
+    m_Localized: Unfortunately, the patient passed away. {patientName} died from
+      {deathCause}.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246022406144
+    m_Localized: Press E to open/close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246039183360
+    m_Localized: Press E to pick up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377664
+    m_Localized: Press Q to pick up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377665
+    m_Localized: Press E or Q to pick up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377666
+    m_Localized: Press E to drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377667
+    m_Localized: Press Q to drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377668
+    m_Localized: Press E or Q to drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377669
+    m_Localized: Press E to read
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377670
+    m_Localized: Press Q to read
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377671
+    m_Localized: Press E or Q to read
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377672
+    m_Localized: Press E to return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377673
+    m_Localized: Press Q to return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377674
+    m_Localized: Press E or Q to return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377675
+    m_Localized: Press E to return, or Q to drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377676
+    m_Localized: Press E to drop, or Q to return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377677
+    m_Localized: Press E to place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377678
+    m_Localized: Press Q to place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377679
+    m_Localized: Press E or Q to place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377680
+    m_Localized: Your hands are full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664246043377681
+    m_Localized: No room ({0}/{1})
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1667688048623616
+    m_Localized: Press E to call 112
     m_Metadata:
       m_Items: []
   references:

@@ -1,39 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceableObj : MonoBehaviour
+public sealed class PlaceableObj : MonoBehaviour
 {
-    public readonly Dictionary<int, Vector3> objPositions = new Dictionary<int, Vector3>
+    [SerializeField] private readonly Dictionary<int, Vector3> objPositions = new()
     {
-        {0, new Vector3(0.00112f, -0.00001f, 0.00092f)},
-        {1, new Vector3(-0.00142f, -0.00001f, 0.00092f)},
-        {2, new Vector3(0.00004f, -0.00001f, -0.000153f)}
+        { 0, new Vector3(0.00112f, -0.00001f, 0.00092f) },
+        { 1, new Vector3(-0.00142f, -0.00001f, 0.00092f) },
+        { 2, new Vector3(0.00004f, -0.00001f, -0.000153f) }
     };
-    public int children = 0;
 
-    public bool full = false;
+    public int CurrentCount => transform.childCount;
+    public int Capacity => objPositions.Count;
+    public bool HasFreePosition => CurrentCount < Capacity;
 
-    private void Update()
+    public bool TryGetPosition(out Vector3 position)
     {
-        children = transform.childCount;
-        if (children >= 3)
+        if (!HasFreePosition)
         {
-            full = true;
+            position = Vector3.zero;
+            return false;
         }
-    }
 
-    public Vector3 getPPos()
-    {
-        if (!full)
-        {
-            Vector3 position = new Vector3(objPositions[children].x, objPositions[children].y, objPositions[children].z);
-            return position;
-        }
-        else
-        {
-            Debug.LogWarning("PlaceableObj is full. Cannot get position for new object.");
-            return Vector3.zero; 
-        }
+        position = objPositions[CurrentCount];
+        return true;
     }
-
 }
