@@ -58,7 +58,7 @@ public sealed class Read : MonoBehaviour
 
         InteractableObjects interactable = pin.GetComponent<InteractableObjects>();
 
-        if (interactable != null) interactable.Interact();
+        if (interactable != null) interactable.Interact(pin);
         StartCoroutine(SetPinActiveAfterDelay(false));
 
         col.enabled = false;
@@ -78,7 +78,7 @@ public sealed class Read : MonoBehaviour
 
         InteractableObjects interactable = pin.GetComponent<InteractableObjects>();
 
-        if (interactable != null) interactable.Interact();
+        if (interactable != null) interactable.Interact(pin);
 
         StartCoroutine(SetPinActiveAfterDelay(true));
 

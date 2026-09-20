@@ -1,10 +1,9 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public sealed class InteractableObjects : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private string openState;
-    [SerializeField] private string closeState;
 
     private bool isOpen;
     
@@ -13,9 +12,9 @@ public sealed class InteractableObjects : MonoBehaviour
         if (animator == null) animator = GetComponent<Animator>();
     }
 
-    public void Interact()
+    public void Interact(Transform obj)
     {
         isOpen = !isOpen;
-        animator.Play(isOpen ? openState : closeState);
+        animator.Play(isOpen ? $"Open_{obj.name}" : $"Close_{obj.name}");
     }
 }

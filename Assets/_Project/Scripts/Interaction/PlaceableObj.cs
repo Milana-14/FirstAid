@@ -10,7 +10,21 @@ public sealed class PlaceableObj : MonoBehaviour
         { 2, new Vector3(0.00004f, -0.00001f, -0.000153f) }
     };
 
-    public int CurrentCount => transform.childCount;
+    public int CurrentCount
+    {
+        get
+        {
+            int count = 0;
+
+            foreach (Transform child in transform)
+            {
+                if (child.GetComponent<PlaceDown>() != null)
+                    count++;
+            }
+
+            return count;
+        }
+    }
     public int Capacity => objPositions.Count;
     public bool HasFreePosition => CurrentCount < Capacity;
 

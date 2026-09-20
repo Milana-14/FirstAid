@@ -478,8 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1d3f8fc82b43249b13d8aa222438ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  rayHolder: {fileID: 60692100}
-  rayLength: 3.5
+  rayHolder: {fileID: 1565308295}
+  rayLength: 4
   collisionLayers:
     serializedVersion: 2
     m_Bits: 130875
@@ -695,8 +695,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &87636547
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,8 +764,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &91722899
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,8 +977,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 146488259}
-  openState: Open_Panta_Shkaf2
-  closeState: Close_Panta_Shkaf2
 --- !u!1 &155820790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,8 +1046,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 155820792}
-  openState: Open_Panta_Wood2
-  closeState: Close_Panta_Wood2
 --- !u!1 &193227966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,8 +1234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &303999662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,8 +1356,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &317595261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,8 +1895,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &530232276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,8 +1964,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 530232278}
-  openState: Open_Panta_ShkafNew2
-  closeState: Close_Panta_ShkafNew2
 --- !u!1 &540349330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,8 +2067,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &557041644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,8 +2341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 577877292}
-  openState: Open_Panta4
-  closeState: Close_Panta4
 --- !u!95 &577877292
 Animator:
   serializedVersion: 7
@@ -2452,8 +2432,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 581122497}
-  openState: 
-  closeState: 
 --- !u!1 &624204615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,8 +2669,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 660066430}
-  openState: Open_Panta3
-  closeState: Close_Panta3
 --- !u!95 &660066430
 Animator:
   serializedVersion: 7
@@ -2837,8 +2813,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &706797927
 GameObject:
   m_ObjectHideFlags: 0
@@ -9391,8 +9365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &953409906
 GameObject:
   m_ObjectHideFlags: 0
@@ -9505,8 +9477,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &999341628
 GameObject:
   m_ObjectHideFlags: 0
@@ -14571,8 +14541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 1033400354}
-  openState: Open_Panta_ShkafNew1
-  closeState: Close_Panta_ShkafNew1
 --- !u!1 &1033478421
 GameObject:
   m_ObjectHideFlags: 0
@@ -14644,8 +14612,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 1033478423}
-  openState: Open_Panta_Shkaf1
-  closeState: Close_Panta_Shkaf1
 --- !u!23 &1033478425
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21376,8 +21342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &1497067691
 GameObject:
   m_ObjectHideFlags: 0
@@ -21736,8 +21700,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 1521091952}
-  openState: Open_Shkaf3
-  closeState: Close_Shkaf3
 --- !u!1 &1560456293
 GameObject:
   m_ObjectHideFlags: 0
@@ -21917,8 +21879,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &1585460504
 GameObject:
   m_ObjectHideFlags: 0
@@ -22430,8 +22390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &1712860517
 GameObject:
   m_ObjectHideFlags: 0
@@ -22581,8 +22539,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 1719081107}
-  openState: 
-  closeState: 
 --- !u!1 &1720910906
 GameObject:
   m_ObjectHideFlags: 0
@@ -22729,8 +22685,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 0}
-  openState: 
-  closeState: 
 --- !u!1 &1776035559
 GameObject:
   m_ObjectHideFlags: 0
@@ -22810,8 +22764,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 1803546881}
-  openState: Open_Panta_010
-  closeState: Close_Panta_010
 --- !u!95 &1803546881
 Animator:
   serializedVersion: 7
@@ -23754,8 +23706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 2041696655}
-  openState: Open_Panta_Wood2_2
-  closeState: Close_Panta_Wood2_2
 --- !u!1 &2054350866
 GameObject:
   m_ObjectHideFlags: 0
@@ -54672,8 +54622,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObjects
   animator: {fileID: 5838717815748104076}
-  openState: Open_Pin
-  closeState: Close_Pin
 --- !u!33 &5839411591981810975
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -108,7 +108,7 @@ public sealed class PlayerInteraction : MonoBehaviour
         string promptToKey = !string.IsNullOrEmpty(customPromptKey) ? customPromptKey : "Prompt_Interact";
         ShowPrompt(promptToKey);
 
-        if (Keyboard.current.eKey.wasPressedThisFrame) interactable.Interact();
+        if (Keyboard.current.eKey.wasPressedThisFrame) interactable.Interact(interactable.transform);
     }
 
     private void HandlePickUpTarget(PickUp target)
