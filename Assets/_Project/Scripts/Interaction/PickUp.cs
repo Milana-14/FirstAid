@@ -7,6 +7,8 @@ public sealed class PickUp : MonoBehaviour
     [SerializeField] private float smoothSpeed = 8f;
     [SerializeField] private Vector3 pickupLocalPosition;
 
+    private string DefaultParentName = "Player";
+
     private Vector3 initialScale;
     private Quaternion initialRotation;
     private Collider col;
@@ -21,6 +23,12 @@ public sealed class PickUp : MonoBehaviour
 
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+
+        if(parent == null)
+        {
+            GameObject parentObject = GameObject.Find(DefaultParentName);
+            if (parentObject != null) parent = parentObject.transform;
+        }
     }
     
     private void Update()

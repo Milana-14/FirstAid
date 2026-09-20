@@ -58,8 +58,12 @@ public sealed class PlayerInteraction : MonoBehaviour
         }
         
         InteractableObjects interactable = hit.transform.GetComponent<InteractableObjects>();
+        bool isReadable = hit.transform.GetComponent<Read>() != null;
 
-        if (interactable == null) interactable = hit.transform.GetComponentInParent<InteractableObjects>();
+        if (interactable == null && !isReadable)
+        {
+            interactable = hit.transform.GetComponentInParent<InteractableObjects>();
+        }
 
         if (interactable != null)
         {
