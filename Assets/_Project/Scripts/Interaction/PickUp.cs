@@ -14,6 +14,8 @@ public sealed class PickUp : MonoBehaviour
     private Collider col;
     private Rigidbody rb;
 
+    private PlaceableObj po;
+
     public bool IsPickedUp { get; private set; }
     
     private void Awake()
@@ -23,8 +25,9 @@ public sealed class PickUp : MonoBehaviour
 
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        po = GetComponent<PlaceableObj>();
 
-        if(parent == null)
+        if (parent == null)
         {
             GameObject parentObject = GameObject.Find(DefaultParentName);
             if (parentObject != null) parent = parentObject.transform;
@@ -49,8 +52,10 @@ public sealed class PickUp : MonoBehaviour
         if (rb != null) rb.isKinematic = true;
 
         transform.SetParent(parent, false);
-        transform.localRotation = Quaternion.identity;
-
+        if(po == null)
+        {
+            transform.localRotation = Quaternion.identity;
+        }
         Vector3 parentScale = parent.lossyScale;
 
         transform.localScale = new Vector3(initialScale.x / parentScale.x, initialScale.y / parentScale.y, initialScale.z / parentScale.z);

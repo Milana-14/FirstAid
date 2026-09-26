@@ -73,9 +73,9 @@ public sealed class PlayerInteraction : MonoBehaviour
 
         PickUp pickUp = hit.transform.GetComponent<PickUp>();
 
-        if (pickUp == null) pickUp = hit.transform.GetComponentInParent<PickUp>();
+        if (pickUp == null || pickUp.enabled == false) pickUp = hit.transform.GetComponentInParent<PickUp>();
 
-        if (pickUp != null)
+        if (pickUp != null && pickUp.enabled == true)
         {
             HandlePickUpTarget(pickUp);
             return;
@@ -475,4 +475,6 @@ public sealed class PlayerInteraction : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(rayHolder.position, rayHolder.forward * rayLength);
     }
+
+    //
 }
