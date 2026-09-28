@@ -6,8 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public sealed class PlaceableObj : MonoBehaviour
 {
-    PlaceableObj po;
-    PickUp pu;
+    private PickUp pu;
     [SerializeField] private readonly Dictionary<int, Vector3> objPositions = new()
     {
         { 0, new Vector3(0.00112f, -0.00001f, 0.00092f) },
@@ -36,13 +35,12 @@ public sealed class PlaceableObj : MonoBehaviour
 
     private void Awake()
     {
-        po = GetComponent<PlaceableObj>();
         pu = GetComponent<PickUp>();
     }
 
     private void Update()
     {
-      SetState();
+        SetState();
     }
 
     public bool TryGetPosition(out Vector3 position)
@@ -59,15 +57,6 @@ public sealed class PlaceableObj : MonoBehaviour
 
     private void SetState()
     {
-        if(!HasFreePosition)
-        {
-            pu.enabled = true;
-            po.enabled = false;
-        }
-        else
-        {
-            pu.enabled = false;
-            po.enabled = true;
-        }
+        pu.enabled = !HasFreePosition;
     }
 }
