@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using OrganismSim.PlayerActions;
 using UnityEngine;
 using TMPro;
@@ -14,7 +15,7 @@ public sealed class ActionResultUI : MonoBehaviour
     [Header("Fade Settings")]
     [SerializeField] private float fadeDuration = 5f;
     
-    private Coroutine fadeCoroutine;
+    private Coroutine _fadeCoroutine;
 
     private void OnEnable()
     {
@@ -39,11 +40,9 @@ public sealed class ActionResultUI : MonoBehaviour
     private void DisplayText(string translatedText)
     {
         actionResultText.text = translatedText;
-        actionResultText.gameObject.SetActive(true);
 
-        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
-
-        fadeCoroutine = StartCoroutine(FadeActionResultText());
+        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        _fadeCoroutine = StartCoroutine(FadeActionResultText());
     }
 
     private IEnumerator FadeActionResultText()
@@ -65,7 +64,6 @@ public sealed class ActionResultUI : MonoBehaviour
             yield return null;
         }
 
-        actionResultText.gameObject.SetActive(false);
-        fadeCoroutine = null;
+        _fadeCoroutine = null;
     }
 }

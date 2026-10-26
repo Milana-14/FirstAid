@@ -17,7 +17,7 @@ namespace OrganismSim.Core
     public sealed class CardiacEventComplication : IComplicationRule
     {
         public string Description => "прекарала лек инфаркт вследствие тежката хипогликемия";
-        public bool Applies(Patient patient) => patient.Exposure.MyocardialInfractionEvents > 0; // было HeartFailure>0
+        public bool Applies(Patient patient) => patient.Exposure.MyocardialInfractionEvents > 0;
     }
 
     public sealed class StrokeComplication : IComplicationRule

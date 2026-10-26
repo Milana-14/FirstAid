@@ -49,7 +49,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2376072953872
-    m_Localized: Patient is already standing.
+    m_Localized: '{patientName} is already standing.'
     m_Metadata:
       m_Items: []
   - m_Id: 2376072953871
@@ -70,7 +70,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2376072953867
-    m_Localized: '{patientName} is choking on the biscuit.'
+    m_Localized: You gave her a biscuit but now {patientName} is choking!
     m_Metadata:
       m_Items:
       - rid: 8290521418724540554
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2376072953865
-    m_Localized: '{patientName} is choking on the juice.'
+    m_Localized: You gave her juice but now {patientName} is choking!
     m_Metadata:
       m_Items:
       - rid: 8290521418724540554
@@ -88,7 +88,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2376072953863
-    m_Localized: '{patientName} is choking on the water.'
+    m_Localized: You gave her water, but now {patientName} is choking!
     m_Metadata:
       m_Items:
       - rid: 8290521418724540554

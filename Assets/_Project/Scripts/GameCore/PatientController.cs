@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.AI;
 using UnityEngine;
 using OrganismSim.Core;
 using OrganismSim.PlayerActions;
@@ -14,11 +15,12 @@ public sealed class PatientController : MonoBehaviour
 
     public event Action<Patient> OnTick;
     public event Action<int> OnTimeChanged;
+    public event Action<ActionResult, int> OnLogAction;
     public event Action<ActionResult> OnActionResult;
 
     public void Initialize(Patient patient)
     {
-        if (patient == null) throw new ArgumentNullException("patient");
+        if (patient == null) throw new ArgumentNullException(nameof(patient));
         if (IsInitialized) throw new InvalidOperationException("PatientController е вече инициализиран");
 
         Patient = patient;
@@ -52,9 +54,11 @@ public sealed class PatientController : MonoBehaviour
     public void TryExecuteAction(IPlayerAction action)
     {
         if (Patient == null) throw new InvalidOperationException("PatientController is not initialized.");
-        if (action == null) throw new ArgumentNullException("action");
+        if (action == null) throw new ArgumentNullException(nameof(action));
 
         ActionResult result = action.Execute(Patient);
+        
+        OnLogAction?.Invoke(result, ElapsedSeconds);
 
         OnActionResult?.Invoke(result);
     }

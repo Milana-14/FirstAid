@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.AI;
 using OrganismSim.Core;
 using UnityEngine;
 
@@ -10,22 +11,30 @@ public sealed class PhaseController : MonoBehaviour
 
     [SerializeField] private PatientController patientController;
     [SerializeField] private ScenarioController scenarioController;
-    [SerializeField] private ComplicationEngine complicationEngine;
     [SerializeField] private int ambulanceEtaSeconds = 300; // balance
+    private ComplicationEngine complicationEngine;
 
     public bool IsActivePhase { get; private set; }
     private bool _scenarioEnded;
     public bool AmbulanceCalled { get; private set; }
     private int _accumulatedEtaSeconds;
     private bool _ambulanceArrived;
+    
+    private ActionLog _actionLog;
+    private AiService _aiService;
     public event Action<int> OnTimeEtaChanged;
-
     public event Action<ScenarioOutcome, Patient, DeathCause, IReadOnlyList<string>> OnScenarioEnded;
 
     private void Awake()
     {
         Instance = this;
         scenarioController.OnPatientReady += HandlePatientReady;
+    }
+    
+    private void Start()
+    {
+        _actionLog = new ActionLog(patientController);
+        _aiService = new AiService(_actionLog, this);
     }
 
     private void HandlePatientReady()
@@ -47,6 +56,8 @@ public sealed class PhaseController : MonoBehaviour
             patientController.Patient.OnPatientDied -= HandlePatientDied;
             patientController.Patient.OnPatientStabilized -= HandlePatientStabilized;
         }
+        
+        _actionLog?.Unsubscribe();
     }
 
     private IEnumerator ScenarioSequence() // i love this part (inspired by Inscryption)

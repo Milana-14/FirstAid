@@ -51,4 +51,10 @@ public class LocalizationService : MonoBehaviour
     {
         GetLocalizedString(medicalTableName, $"Condition_{condition}", callback);
     }
+    
+    public string GetCurrentLanguageName()
+    {
+        var selectedLang = LocalizationSettings.SelectedLocale;
+        return selectedLang != null ? selectedLang.LocaleName : "English";
+    }
 }

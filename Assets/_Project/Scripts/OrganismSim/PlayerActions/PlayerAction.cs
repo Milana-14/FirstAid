@@ -19,7 +19,6 @@ namespace OrganismSim.PlayerActions
                 patient.Pathology.Adjust(ConditionType.AirwayObstruction, chokeProbability * 6);
                 patient.Exposure.RecordChoking();
                 
-                // Передаем ключ сообщения и имя пациента в качества аргумента
                 return new ActionResult(
                     ActionOutcome.Complication, 
                     "action_give_water_choked", 
@@ -138,13 +137,19 @@ namespace OrganismSim.PlayerActions
         public ActionResult Execute(Patient patient)
         {
             if (patient.Posture == PatientPosture.Standing)
-                return new ActionResult(ActionOutcome.Success, "action_help_stand_already_standing");
+                return new ActionResult(ActionOutcome.Success, 
+                    "action_help_stand_already_standing",
+                    new object[] { new {patientName = patient.Name } });
 
             if (patient.Physiology.Get(ParameterType.Consciousness) <= 2)
-                return new ActionResult(ActionOutcome.Blocked, "action_help_stand_unconscious");
+                return new ActionResult(ActionOutcome.Blocked, 
+                    "action_help_stand_unconscious", 
+                    new object[] { new { patientName = patient.Name } });
 
             patient.Posture = PatientPosture.Standing;
-            return new ActionResult(ActionOutcome.Success, "action_help_stand_success");
+            return new ActionResult(ActionOutcome.Success, 
+                "action_help_stand_success", 
+                new object[] { new { patientName = patient.Name } } );
         }
     }
 
