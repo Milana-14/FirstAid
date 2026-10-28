@@ -108,15 +108,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1664246043377677
-    m_Localized: Press E to place
+    m_Localized: Press E to place ({0}/{1})
     m_Metadata:
       m_Items: []
   - m_Id: 1664246043377678
-    m_Localized: Press Q to place
+    m_Localized: Press Q to place ({0}/{1})
     m_Metadata:
       m_Items: []
   - m_Id: 1664246043377679
-    m_Localized: Press E or Q to place
+    m_Localized: Press E or Q to place ({0}/{1})
     m_Metadata:
       m_Items: []
   - m_Id: 1664246043377680

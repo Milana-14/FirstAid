@@ -15,9 +15,10 @@ public sealed class PickUp : MonoBehaviour
     private Rigidbody rb;
 
     private PlaceableObj po;
+    private PlaceDown placeDown;
 
     public bool IsPickedUp { get; private set; }
-    
+
     private void Awake()
     {
         initialScale = transform.localScale;
@@ -26,6 +27,7 @@ public sealed class PickUp : MonoBehaviour
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
         po = GetComponent<PlaceableObj>();
+        placeDown = GetComponent<PlaceDown>();
 
         if (parent == null)
         {
@@ -33,7 +35,7 @@ public sealed class PickUp : MonoBehaviour
             if (parentObject != null) parent = parentObject.transform;
         }
     }
-    
+
     private void Update()
     {
         if (!IsPickedUp) return;
@@ -47,12 +49,14 @@ public sealed class PickUp : MonoBehaviour
     {
         if (IsPickedUp) return;
         IsPickedUp = true;
-        
+
+        if (placeDown != null) placeDown.RemoveFromPlace();
+
         if (col != null) col.enabled = false;
         if (rb != null) rb.isKinematic = true;
 
         transform.SetParent(parent, false);
-        if(po == null)
+        if (po == null)
         {
             transform.localRotation = Quaternion.identity;
         }
@@ -83,7 +87,7 @@ public sealed class PickUp : MonoBehaviour
         if (col != null) col.enabled = true;
         Physics.SyncTransforms();
     }
-    
+
     public void SetPickupPosition(Vector3 position)
     {
         pickupLocalPosition = position;

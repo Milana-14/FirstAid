@@ -254,7 +254,7 @@ public sealed class PlayerInteraction : MonoBehaviour
 
         if (rightCanPlace && leftCanPlace)
         {
-            ShowPrompt("Prompt_Place_TwoHands");
+            ShowPrompt("Prompt_Place_TwoHands", placeable.CurrentCount, placeable.Capacity);
 
             if (Keyboard.current.eKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Right);
 
@@ -265,7 +265,7 @@ public sealed class PlayerInteraction : MonoBehaviour
 
         if (rightCanPlace)
         {
-            ShowPrompt("Prompt_Place_Right");
+            ShowPrompt("Prompt_Place_Right", placeable.CurrentCount, placeable.Capacity);
 
             if (Keyboard.current.eKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Right);
 
@@ -274,7 +274,7 @@ public sealed class PlayerInteraction : MonoBehaviour
 
         if (leftCanPlace)
         {
-            ShowPrompt("Prompt_Place_Left");
+            ShowPrompt("Prompt_Place_Left", placeable.CurrentCount, placeable.Capacity);
 
             if (Keyboard.current.qKey.wasPressedThisFrame) PlaceHeldObject(placeable, Hand.Left);
 
