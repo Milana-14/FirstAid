@@ -1,173 +1,169 @@
-# 🚑 First Aid: Under Pressure
+# 🚑 Първа помощ (First Aid)
 
-> **A 3D educational first-person game about making the right decision when every second matters.**
+> **3D образователна игра от първо лице, в която всяко решение може да бъде от значение.**
 
-**First Aid: Under Pressure** is an educational game designed to teach players how to react in emergency situations and provide first aid when another person's life may depend on their actions.
+**First Aid: Under Pressure** е образователна игра, чиято цел е да запознае играчите с основните принципи на оказването на първа помощ и правилната реакция при спешни ситуации.
 
-Instead of simply following a fixed sequence of instructions, players are placed in realistic, high-pressure situations where they must **observe, think, make decisions and act**.
+Вместо просто да следват предварително зададени инструкции, играчите попадат в различни реалистични ситуации, в които трябва сами да преценят какво се случва и как да постъпят. Те трябва да наблюдават, да събират информация, да вземат решения и да действат в условия на ограничено време.
 
-> ⚠️ **The game is an educational simulation and does not replace professional first-aid training.**
-
----
-
-## 🎮 The Game
-
-In **First Aid: Under Pressure**, you don't get a simple notification telling you exactly what is wrong.
-
-You have to assess the situation, pay attention to the person in need and the environment around you, and decide what to do before it is too late.
-
-Every scenario is designed to make you ask:
-
-- **What is happening?**
-- **What should I do first?**
-- **Do I have enough information to act?**
-- **Should I act now or spend time checking the situation?**
-- **What happens if I make the wrong decision?**
-
-The goal is not just to memorize first-aid procedures, but to develop **confidence, awareness and critical thinking under pressure**.
+> ⚠️ **Играта има образователен характер и не замества професионалното обучение по първа помощ.**
 
 ---
 
-## 🔥 Key Features
+## 🎮 За играта
 
-### 🧠 Think, Don't Memorize
+В **First Aid: Under Pressure** няма да получавате готово съобщение, което да ви казва какъв е проблемът и какво точно трябва да направите.
 
-The game focuses on decision-making rather than simply memorizing a list of steps.
+Всяка ситуация изисква внимание към пострадалия и заобикалящата го среда. Ще трябва сами да откриете важните детайли и да прецените кои действия са най-подходящи.
 
-### ⏱️ Real-Time Pressure
+По време на играта ще се изправяте пред въпроси като:
 
-The situation continues to develop while you think. Delaying an action can matter.
+- **Какво се е случило?**
+- **Кое е най-важното действие в момента?**
+- **Разполагам ли с достатъчно информация, за да предприема нещо?**
+- **Трябва ли да действам веднага, или първо да проверя ситуацията?**
+- **Какви могат да бъдат последствията от решението ми?**
 
-### 👀 Observe the Situation
-
-Information is hidden in the environment, the condition of the injured person and the details of the scenario.
-
-### 🎒 Interactive Environment
-
-Explore the surroundings and interact with objects that may become important in an emergency.
-
-### 🩺 Multiple Possible Situations
-
-The same type of scenario can involve different medical situations, making each playthrough less predictable.
-
-### 🤖 Post-Scenario Feedback
-
-After a scenario, the game can analyse your decisions and provide feedback about your performance, mistakes and possible improvements.
-
-### 🏆 Different Outcomes
-
-Your decisions can influence how a scenario ends. Success is not always simply a matter of reaching a single predetermined ending.
+Основната идея е не просто да научите определени процедури наизуст, а да развиете умения за наблюдение, преценка и вземане на решения в напрегнати ситуации.
 
 ---
 
-## 🎯 Educational Purpose
+## 🔥 Основни характеристики
 
-The game is built around a simple idea:
+### 🧠 Мислене вместо наизустяване
 
-> **In a real emergency, nobody gives you a "correct answer" button.**
+Играта поставя акцент върху самостоятелната преценка. Важно е не само да знаете какво трябва да направите, но и да разберете кога и защо дадено действие е необходимо.
 
-There may be limited information, limited time and a person who needs help.
+### ⏱️ Действие в реално време
 
-**First Aid: Under Pressure** aims to provide a safe environment where players can experience this kind of decision-making and learn from their choices.
+Ситуациите се развиват, докато играчът взема решения. Загубеното време може да има значение за развитието на събитията.
 
-The game is intended for a broad audience, especially:
+### 👀 Наблюдение и анализ
 
-- Students
-- People without medical education
-- Participants in first-aid courses
-- Anyone interested in becoming more prepared for emergency situations
+Необходимата информация невинаги е очевидна. Тя може да се крие в състоянието на пострадалия, предметите наоколо или особеностите на самата ситуация.
 
-The planned minimum age is approximately **12+**.
+### 🎒 Взаимодействие със заобикалящата среда
 
----
+Играчът може да разглежда и използва различни предмети от околната среда, които биха могли да бъдат полезни при оказването на помощ.
 
-## 🚨 Scenarios
+### 🩺 Разнообразни ситуации
 
-The game takes place across different realistic emergency situations.
+Дори привидно еднакви сценарии могат да се развият по различен начин и да изискват различен подход. Това прави всяко изиграване по-различно.
 
-### 🛣️ Car Accident
+### 🤖 Анализ след приключване на сценария
 
-Help your injured sister after a serious car accident on a highway.
+След края на всяка ситуация играчът получава обратна връзка за действията си. Тя включва допуснатите грешки, правилните решения и възможностите за подобрение.
 
-The scenario focuses on:
+### 🏆 Различни възможни развръзки
 
-- Assessing an injured person
-- Reacting under time pressure
-- Dealing with a dangerous environment
-- Deciding what should be done before professional help arrives
-
-### 👵 "Grandma in despair"
-
-Discover your grandmother in distress and figure out what is happening.
-
-Several different situations can occur, and the environment contains clues that can help you understand what is wrong.
-
-This scenario introduces the core idea of the game:
-
-> **Don't assume. Observe.**
-
-More scenarios are planned as development continues.
+Изходът от ситуацията зависи от решенията на играча. Не винаги има само един предварително определен начин, по който всичко трябва да приключи.
 
 ---
 
-## 🎚️ Difficulty Modes
+## 🎯 Образователна цел
 
-The game is planned to offer different levels of assistance.
+Основната идея зад проекта е проста:
 
-### 📚 Training
+> **В реална спешна ситуация никой няма да ти посочи правилния отговор.**
 
-Designed for learning the basics with additional guidance and information.
+Понякога информацията е ограничена, времето не достига, а човекът срещу теб има нужда от помощ.
 
-### 🎮 Standard
+**First Aid: Under Pressure** цели да пресъздаде подобни ситуации в контролирана виртуална среда, в която играчите могат да упражняват преценката си и да се учат от собствените си решения, без да излагат реални хора на опасност.
 
-Provides less assistance and expects the player to assess the situation independently.
+Играта е насочена към широка аудитория, като основните целеви групи са:
 
-### 🧠 Expert
+- Ученици и студенти
+- Хора без медицинско образование
+- Участници в курсове по първа помощ
+- Всички, които искат да научат повече за реакцията при спешни ситуации
 
-Minimal guidance. The player has to rely on observation, reasoning and knowledge.
-
----
-
-## 🎨 Immersion
-
-The game uses a **3D first-person perspective** to make emergency situations feel more immediate and personal.
-
-Visual effects may also react to the player's condition, helping create a sense of stress and urgency.
+Планираната минимална възраст за игра е приблизително **12 години**.
 
 ---
 
-## 🏆 Your Decisions Matter
+## 🚨 Сценарии
 
-A scenario can have different outcomes depending on what the player does.
+Действието се развива в различни реалистични ситуации, всяка със свои особености и предизвикателства.
 
-Possible results include:
+### 🛣️ Автомобилна катастрофа
 
-- 🟢 Successfully stabilizing the situation
-- 🟡 The person surviving with complications
-- 🔴 The person dying
+След сериозна катастрофа на магистрала трябва да помогнете на пострадалата си сестра.
 
-Afterwards, the player can review their performance and understand what could have been done differently.
+Сценарият поставя играча пред няколко основни предизвикателства:
+
+- Преценка на състоянието на пострадалия
+- Вземане на решения в условия на ограничено време
+- Съобразяване с опасностите в околната среда
+- Определяне на правилните действия до пристигането на професионална помощ
+
+### 👵 „Баба е в беда“
+
+Откривате баба си в затруднено състояние и трябва да разберете какво се е случило.
+
+В този сценарий са възможни няколко различни ситуации. Заобикалящата среда съдържа подсказки, които могат да ви помогнат да установите какъв е проблемът.
+
+Тук на преден план излиза един от основните принципи на играта:
+
+> **Не прибързвай със заключенията. Наблюдавай и преценявай.**
+
+С разрастването на проекта се предвижда добавянето на още сценарии.
 
 ---
 
-## 🛠️ Project Status
+## 🎚️ Нива на трудност
 
-🚧 **In Development**
+Предвидени са три режима на игра, които се различават по степента на помощ и насоки, предоставяни на играча.
 
-The game is currently under development. Gameplay systems, scenarios, simulation mechanics and educational content are being actively designed and implemented.
+### 📚 Обучителен режим (Training)
+
+Подходящ за начинаещи. Играчът получава повече информация, подсказки и обяснения, които му помагат да усвои основните принципи на първата помощ.
+
+### 🎮 Стандартен режим (Standard)
+
+Подсказките са по-ограничени. От играча се очаква самостоятелно да анализира ситуацията и да взема решения.
+
+### 🧠 Експертен режим (Expert)
+
+Предоставя минимални насоки. Играчът трябва да разчита предимно на собствените си знания, наблюдателност и логическо мислене.
 
 ---
 
-## ❤️ The Idea Behind the Game
+## 🎨 Визия и атмосфера
 
-A real emergency does not come with a tutorial.
+Играта използва **3D графика и перспектива от първо лице**, за да постави играча непосредствено в центъра на събитията.
 
-There is no pause button.
+Предвиждат се и различни визуални ефекти, които се променят в зависимост от състоянието на героя и допринасят за усещането за напрежение и спешност.
 
-There is no obvious answer.
+---
 
-There is only a situation, a person who needs help and the decisions you make.
+## 🏆 Последствията от решенията
 
-### **Observe. Think. Act.**
+Всяко действие може да повлияе върху развитието и крайния изход на даден сценарий.
 
-### **Every second matters.**
+Възможните резултати включват:
+
+- 🟢 Успешно овладяване на ситуацията
+- 🟡 Пострадалият оцелява, но с настъпили усложнения
+- 🔴 Пострадалият не оцелява
+
+След приключването на сценария играчът може да разгледа действията си и да разбере кои решения са били правилни, къде е допуснал грешки и как е можел да постъпи по-добре.
+
+---
+
+## 🛠️ Разработка на проекта
+
+<badge color="warning">В процес на разработка</badge>
+
+Играта все още е в процес на разработка. В момента се работи по основните игрови механики, сценариите, симулационните системи и образователното съдържание.
+
+---
+
+## ❤️ Идеята зад проекта
+
+В реалния живот спешните ситуации не идват с предварителни инструкции.
+
+Няма бутон за пауза. Няма гарантиран правилен отговор. Има само ситуация, човек, който се нуждае от помощ, и решенията, които трябва да вземеш.
+
+### **Наблюдавай. Мисли. Действай.**
+
+### **Всяка секунда има значение.**
