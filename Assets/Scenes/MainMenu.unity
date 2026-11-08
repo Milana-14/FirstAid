@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsMenu
   audioMixer: {fileID: 24100000, guid: b8bb8002dad301a4a8b1a7ffcafe85e7, type: 2}
+  qualityDropdown: {fileID: 403093575}
   resolutionDropdown: {fileID: 175354971}
 --- !u!1 &29114738
 GameObject:
@@ -1044,7 +1045,6 @@ GameObject:
   - component: {fileID: 175354973}
   - component: {fileID: 175354972}
   - component: {fileID: 175354971}
-  - component: {fileID: 175354970}
   m_Layer: 5
   m_Name: Resolution
   m_TagString: Untagged
@@ -1074,18 +1074,6 @@ RectTransform:
   m_AnchoredPosition: {x: -80, y: -46}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &175354970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175354968}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e94706ea4ee00d4fad53836f5c7d646, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResolutionControl
 --- !u!114 &175354971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,34 +1124,10 @@ MonoBehaviour:
   m_Value: 3
   m_MultiSelect: 0
   m_Options:
-    m_Options:
-    - m_Text: 1280 x 720
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: 1366 x 768
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: 1600 x 900
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: 1920 x 1080
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 18732101}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: SetResolution
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &175354972
 MonoBehaviour:
@@ -1757,7 +1721,6 @@ GameObject:
   - component: {fileID: 403093577}
   - component: {fileID: 403093576}
   - component: {fileID: 403093575}
-  - component: {fileID: 403093574}
   m_Layer: 5
   m_Name: Graphics
   m_TagString: Untagged
@@ -1787,18 +1750,6 @@ RectTransform:
   m_AnchoredPosition: {x: -80, y: -565}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &403093574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403093572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e94706ea4ee00d4fad53836f5c7d646, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResolutionControl
 --- !u!114 &403093575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1849,16 +1800,7 @@ MonoBehaviour:
   m_Value: 2
   m_MultiSelect: 0
   m_Options:
-    m_Options:
-    - m_Text: Low
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Medium
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: High
-      m_Image: {fileID: 21300000, guid: 962db6704d4699b4e87b625d72da1a73, type: 3}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1970,7 +1912,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: High
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4984,7 +4926,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1920 x 1080
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
