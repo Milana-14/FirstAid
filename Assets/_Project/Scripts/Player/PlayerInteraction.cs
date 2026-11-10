@@ -32,6 +32,9 @@ public sealed class PlayerInteraction : MonoBehaviour
     [SerializeField] private Color readColor = Color.lawnGreen;
     [SerializeField] private Color placeColor = Color.cyan;
 
+    [Header("Pause Menu")]
+    [SerializeField] private GameObject pauseMenu;
+
     private Transform leftHeldObject;
     private Transform rightHeldObject;
 
@@ -41,9 +44,15 @@ public sealed class PlayerInteraction : MonoBehaviour
     {
         if (rayHolder == null) return;
 
+        if(Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            HandleMenu();
+            return;
+        }
+
         if (Physics.Raycast(rayHolder.position, rayHolder.forward, out RaycastHit hit, rayLength, collisionLayers))
             HandleTarget(hit);
-        else 
+        else
             HandleNoTarget();
     }
 
@@ -476,5 +485,11 @@ public sealed class PlayerInteraction : MonoBehaviour
         Gizmos.DrawRay(rayHolder.position, rayHolder.forward * rayLength);
     }
 
-    //
+    private void HandleMenu()
+    {
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+        }
+    }
 }
