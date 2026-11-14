@@ -27,7 +27,8 @@ namespace OrganismSim.Core
 
         public bool IsAlive { get; private set; } = true;
         public DeathCause CauseOfDeath { get; private set; } = DeathCause.None;
-        public HashSet<SymptomType> ActiveSymptoms { get; private set; } = new();
+        public List<SymptomType> ActiveSymptoms { get; private set; } = new();
+        private readonly List<SymptomType> _symptomOrder = new();
         
         private bool _wasStabilized;
         
@@ -66,11 +67,21 @@ namespace OrganismSim.Core
             Absorptions.ApplyTick(this, seconds);
             Physiology.RecomputeDerived(Pathology);
 
-            HashSet<SymptomType> old = ActiveSymptoms;
+            List<SymptomType> old = ActiveSymptoms;
             ActiveSymptoms = _symptomEngine.Evaluate(this);
 
             var newSymptoms = ActiveSymptoms.Except(old).ToList();
             var resolvedSymptoms = old.Except(ActiveSymptoms).ToList();
+            
+            foreach (var symptom in newSymptoms)
+            {
+                _symptomOrder.Remove(symptom);
+                _symptomOrder.Add(symptom);
+            }
+
+            ActiveSymptoms = ActiveSymptoms
+                .OrderBy(s => _symptomOrder.IndexOf(s))
+                .ToList();
 
             EvaluateDeath();
             EvaluateState();

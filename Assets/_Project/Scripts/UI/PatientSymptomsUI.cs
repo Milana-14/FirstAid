@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using OrganismSim.Core;
+﻿using OrganismSim.Core;
 using TMPro;
 using UnityEngine;
 
@@ -29,14 +28,16 @@ public sealed class PatientSymptomsUI : MonoBehaviour
             return;
         }
 
-        List<string> localizedSymptoms = new();
+        string[] localizedSymptoms = new string[patient.ActiveSymptoms.Count];
         int pending = patient.ActiveSymptoms.Count;
 
-        foreach (var symptom in patient.ActiveSymptoms)
+        for (int i = 0; i < patient.ActiveSymptoms.Count; i++)
         {
-            LocalizationService.Instance.GetSymptomName(symptom, (translatedSymptom) =>
+            int index = i;
+
+            LocalizationService.Instance.GetSymptomName(patient.ActiveSymptoms[index], (translatedSymptom) =>
             {
-                localizedSymptoms.Add(translatedSymptom);
+                localizedSymptoms[index] = translatedSymptom;
                 pending--;
 
                 if (pending == 0) symptomsText.text = string.Join("\n", localizedSymptoms);

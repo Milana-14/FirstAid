@@ -53,9 +53,9 @@ namespace OrganismSim.Core
             new ShortnessOfBreathRule(),
         };
 
-        public HashSet<SymptomType> Evaluate(Patient patient)
+        public List<SymptomType> Evaluate(Patient patient)
         {
-            return _rules.Where(r => r.IsActive(patient)).Select(r => r.Type).ToHashSet();
+            return _rules.Where(r => r.IsActive(patient)).Select(r => r.Type).ToList();
         }
     }
 }
