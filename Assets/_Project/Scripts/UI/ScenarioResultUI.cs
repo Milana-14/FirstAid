@@ -9,9 +9,12 @@ public sealed class ScenarioResultUI : MonoBehaviour
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private GameObject panelObject;
     
-    private void OnEnable()
+private void Awake()
     {
-        phaseController.OnScenarioEnded += HandleScenarioEnded;
+        if (phaseController != null)
+        {
+            phaseController.OnScenarioEnded += HandleScenarioEnded;
+        }
     }
 
     private void OnDisable()

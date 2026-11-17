@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: d57bdc54433c348478d17575bf41ea08, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 6942303627376591080
   m_TableData:
   - m_Id: 223623249920
     m_Localized: No active symptoms
@@ -26,27 +27,32 @@ MonoBehaviour:
     m_Localized: The ambulance arrived on time thanks to your help. {patientName}
       didn't even develop any complications!
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 223635832833
     m_Localized: 'The ambulance arrived on time thanks to your help. However, {patientName}
       developed: {complications}.'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 223635832834
     m_Localized: Great job! The condition has been stabilized. {patientName} has
       no complications.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 223635832835
     m_Localized: 'The condition has been stabilized. However, {patientName} developed
       the following complications: {complications}.'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 223635832836
     m_Localized: Unfortunately, the patient passed away. {patientName} died from
       {deathCause}.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 1664246022406144
     m_Localized: Press E to open/close
     m_Metadata:
@@ -133,4 +139,14 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6942303627376591080
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 223635832832
+        - id: 223635832833
+        - id: 223635832834
+        - id: 223635832835
+        - id: 223635832836

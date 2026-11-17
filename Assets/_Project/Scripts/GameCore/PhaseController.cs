@@ -12,7 +12,7 @@ public sealed class PhaseController : MonoBehaviour
     [SerializeField] private PatientController patientController;
     [SerializeField] private ScenarioController scenarioController;
     [SerializeField] private int ambulanceEtaSeconds = 300; // balance
-    private ComplicationEngine complicationEngine;
+    private ComplicationEngine complicationEngine = new();
 
     public bool IsActivePhase { get; private set; }
     private bool _scenarioEnded;
