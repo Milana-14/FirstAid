@@ -11,6 +11,7 @@ public sealed class PhaseController : MonoBehaviour
 
     [SerializeField] private PatientController patientController;
     [SerializeField] private ScenarioController scenarioController;
+    [SerializeField] private ScenarioHintController hintController;
     [SerializeField] private int ambulanceEtaSeconds = 300; // balance
     private ComplicationEngine complicationEngine = new();
 
@@ -76,8 +77,18 @@ public sealed class PhaseController : MonoBehaviour
     {
         IsActivePhase = true;
         patientController.IsPaused = false;
+        
+        hintController.SetIdleHints(new[]
+        {
+            "Трябва да проверя състоянието на баба.",
+            "Трябва да разбера дали реагира нормално."
+        });
+        
+        hintController.StartHints(); ///////
 
         while (!_scenarioEnded) yield return null;
+        
+        hintController.StopHints(); ////////
 
         IsActivePhase = false;
         patientController.IsPaused = true;
@@ -86,7 +97,10 @@ public sealed class PhaseController : MonoBehaviour
     public void CallAmbulance()
     {
         if (AmbulanceCalled) return;
+
         AmbulanceCalled = true;
+        hintController.NotifyProgress();
+
         StartCoroutine(AmbulanceTimer());
     }
 

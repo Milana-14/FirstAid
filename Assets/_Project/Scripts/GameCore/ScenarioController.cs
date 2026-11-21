@@ -12,6 +12,8 @@ public sealed class ScenarioController : MonoBehaviour
     [Header("References")]
     [SerializeField] private PatientController patientController;
     
+    public DiagnosisType Diagnosis => diagnosis;
+    
     public event Action OnPatientReady;
     
     private void Start()
