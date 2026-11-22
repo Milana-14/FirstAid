@@ -44,7 +44,7 @@ public sealed class PatientController : MonoBehaviour
 
     private void ProcessOneSecond()
     {
-        Patient.Tick(1);
+        Patient.Tick(1); ////
         ElapsedSeconds++;
 
         OnTick?.Invoke(Patient);

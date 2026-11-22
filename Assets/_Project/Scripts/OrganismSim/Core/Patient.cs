@@ -54,8 +54,8 @@ namespace OrganismSim.Core
         {
             if (!IsAlive)
                 return (Array.Empty<SymptomType>(), Array.Empty<SymptomType>(),
-                    new ReadOnlyDictionary<ParameterType, double>(null),
-                    new ReadOnlyDictionary<ConditionType, double>(null));
+                    new ReadOnlyDictionary<ParameterType, double>(new Dictionary<ParameterType, double>()),
+                    new ReadOnlyDictionary<ConditionType, double>(new Dictionary<ConditionType, double>()));
 
             var startOfTickSnapshot = Physiology.SnapshotCopy();
 

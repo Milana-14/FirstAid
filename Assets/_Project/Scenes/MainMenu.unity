@@ -3502,8 +3502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854bb6ec72f070040ab143de569ed554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingMenu
-  easySelected: {fileID: 0}
-  hardSelected: {fileID: 0}
+  easyButton: {fileID: 0}
+  hardButton: {fileID: 0}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  unselectedColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
 --- !u!222 &948233334
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6051,8 +6053,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854bb6ec72f070040ab143de569ed554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingMenu
-  easySelected: {fileID: 0}
-  hardSelected: {fileID: 0}
+  easyButton: {fileID: 0}
+  hardButton: {fileID: 0}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  unselectedColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
 --- !u!222 &1674134589
 CanvasRenderer:
   m_ObjectHideFlags: 0

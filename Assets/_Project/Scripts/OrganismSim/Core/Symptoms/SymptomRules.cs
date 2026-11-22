@@ -211,19 +211,19 @@ namespace OrganismSim.Core
     public sealed class ReducedPainResponseRule : ISymptomRule
     {
         public SymptomType Type => SymptomType.ReducedPainResponse;
-        public bool IsActive(Patient p) => p.Physiology.Get(ParameterType.Consciousness) <= 2;
+        public bool IsActive(Patient p) => p.Physiology.Get(ParameterType.Consciousness) <= 8;
     }
 
     public sealed class ReducedTouchResponseRule : ISymptomRule
     {
         public SymptomType Type => SymptomType.ReducedTouchResponse;
-        public bool IsActive(Patient p) => p.Physiology.Get(ParameterType.Consciousness) <= 2;
+        public bool IsActive(Patient p) => p.Physiology.Get(ParameterType.Consciousness) <= 8;
     }
 
     public sealed class ReducedTemperatureResponseRule : ISymptomRule
     {
         public SymptomType Type => SymptomType.ReducedTemperatureResponse;
-        public bool IsActive(Patient p) => p.Physiology.Get(ParameterType.Consciousness) <= 2;
+        public bool IsActive(Patient p) => p.Physiology.Get(ParameterType.Consciousness) <= 8;
     }
 
     public sealed class LossOfSwallowingReflexRule : ISymptomRule

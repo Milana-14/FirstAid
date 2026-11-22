@@ -116,15 +116,18 @@ MonoBehaviour:
   - m_Id: 1664246043377677
     m_Localized: Press E to place ({0}/{1})
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 1664246043377678
     m_Localized: Press Q to place ({0}/{1})
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 1664246043377679
     m_Localized: Press E or Q to place ({0}/{1})
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 1664246043377680
     m_Localized: Your hands are full
     m_Metadata:
@@ -132,9 +135,34 @@ MonoBehaviour:
   - m_Id: 1664246043377681
     m_Localized: No room ({0}/{1})
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 6942303627376591080
   - m_Id: 1667688048623616
     m_Localized: Press E to call 112
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599741919232
+    m_Localized: Press E to help sit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696448
+    m_Localized: Press F to help lie down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696449
+    m_Localized: Press R to help stand up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696450
+    m_Localized: No chair or armchair nearby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696451
+    m_Localized: No bed or sofa nearby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696452
+    m_Localized: Patient is standing
     m_Metadata:
       m_Items: []
   references:
@@ -150,3 +178,7 @@ MonoBehaviour:
         - id: 223635832834
         - id: 223635832835
         - id: 223635832836
+        - id: 1664246043377681
+        - id: 1664246043377679
+        - id: 1664246043377678
+        - id: 1664246043377677

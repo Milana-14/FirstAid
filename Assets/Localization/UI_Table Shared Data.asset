@@ -15,6 +15,30 @@ MonoBehaviour:
   m_TableCollectionName: UI_Table
   m_TableCollectionNameGuidString: d57bdc54433c348478d17575bf41ea08
   m_Entries:
+  - m_Id: 24953599741919232
+    m_Key: Prompt_Grandma_HelpSit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696448
+    m_Key: Prompt_Grandma_HelpLie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696449
+    m_Key: Prompt_Grandma_HelpStand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696450
+    m_Key: Prompt_Grandma_NoSeat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696451
+    m_Key: Prompt_Grandma_NoBed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24953599758696452
+    m_Key: Prompt_Grandma_Default
+    m_Metadata:
+      m_Items: []
   - m_Id: 223623249920
     m_Key: no_symptoms
     m_Metadata:
