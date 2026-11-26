@@ -1,5 +1,6 @@
 ﻿using System;
 using OrganismSim.Core;
+using OrganismSim.Diagnoses;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -40,6 +41,11 @@ public class LocalizationService : MonoBehaviour
     public void GetSymptomName(SymptomType symptom, Action<string> callback)
     {
         GetLocalizedString(medicalTableName, $"Symptom_{symptom}", callback);
+    }
+    
+    public void GetDiagnosisName(DiagnosisType diagnosis, Action<string> callback)
+    {
+        GetLocalizedString(medicalTableName, $"Diagnosis_{diagnosis}", callback);
     }
 
     public void GetParameterName(ParameterType param, Action<string> callback)

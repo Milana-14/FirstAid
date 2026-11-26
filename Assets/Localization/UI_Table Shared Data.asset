@@ -147,6 +147,46 @@ MonoBehaviour:
     m_Key: Hint_CallAmbulance
     m_Metadata:
       m_Items: []
+  - m_Id: 25662677455732736
+    m_Key: UI_Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25662798348156928
+    m_Key: UI_Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25662895450488832
+    m_Key: UI_Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25662947896066048
+    m_Key: UI_Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25663767521787904
+    m_Key: UI_Level1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25663872106758144
+    m_Key: UI_Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25663998481137664
+    m_Key: UI_Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25664047881650176
+    m_Key: UI_Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25664229083971584
+    m_Key: UI_Symptoms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25673831091535872
+    m_Key: UI_Diagnosis
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

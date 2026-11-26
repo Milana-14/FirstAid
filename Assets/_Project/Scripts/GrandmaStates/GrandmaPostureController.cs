@@ -12,25 +12,22 @@ public enum CharacterPosture
 
 public sealed class GrandmaPostureController : MonoBehaviour
 {
-    [Header("Ссылки")]
+    [Header("Зависимости")]
     [SerializeField] private PatientController patientController;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform characterRoot;
 
-    [Header("Движение и мебель")]
+    [Header("Движение и мебел")]
     [SerializeField] private float walkSpeed = 1.6f;
     [SerializeField] private List<FurnitureSeatPoint> furniturePoints = new();
 
     [Header("Анимация")]
     [SerializeField] private float crossFadeDuration = 0.15f;
-    [SerializeField] private bool useSecondLayingVariant;
 
-    // Имена блоков должны совпадать с названиями состояний в окне Animator
     private static readonly int StandingHash = Animator.StringToHash("Standing Idle");
     private static readonly int WalkingHash = Animator.StringToHash("Walking");
     private static readonly int SittingHash = Animator.StringToHash("Sitting Idle");
     private static readonly int Laying1Hash = Animator.StringToHash("Laying Idle 1");
-    private static readonly int Laying2Hash = Animator.StringToHash("Laying Idle 2");
 
     public CharacterPosture CurrentPosture { get; private set; } = CharacterPosture.Standing;
     public bool IsForcedDown { get; private set; }
@@ -212,7 +209,7 @@ public sealed class GrandmaPostureController : MonoBehaviour
         {
             CharacterPosture.Walking => WalkingHash,
             CharacterPosture.Sitting => SittingHash,
-            CharacterPosture.Lying => useSecondLayingVariant ? Laying2Hash : Laying1Hash,
+            CharacterPosture.Lying => Laying1Hash,
             _ => StandingHash
         };
 

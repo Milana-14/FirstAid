@@ -165,6 +165,46 @@ MonoBehaviour:
     m_Localized: Patient is standing
     m_Metadata:
       m_Items: []
+  - m_Id: 25662677455732736
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25662798348156928
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25662895450488832
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25662947896066048
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25663767521787904
+    m_Localized: Level 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25663872106758144
+    m_Localized: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25664047881650176
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25663998481137664
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25664229083971584
+    m_Localized: 'Symptoms:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25673831091535872
+    m_Localized: 'Diagnosis:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

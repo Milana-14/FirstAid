@@ -350,6 +350,62 @@ MonoBehaviour:
     m_Localized: Fracture
     m_Metadata:
       m_Items: []
+  - m_Id: 26454743760764928
+    m_Localized: External bleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902272
+    m_Localized: Hemothorax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902273
+    m_Localized: Intra-abdominal bleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902274
+    m_Localized: Pericardial tamponade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902275
+    m_Localized: Myocardial infarction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902276
+    m_Localized: Stroke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902277
+    m_Localized: Hypoglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096576
+    m_Localized: Hyperglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096577
+    m_Localized: Fall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096578
+    m_Localized: Anaphylaxis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096579
+    m_Localized: Mild allergic reaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096580
+    m_Localized: Hypothermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096581
+    m_Localized: Hyperthermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096582
+    m_Localized: Dehydration
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

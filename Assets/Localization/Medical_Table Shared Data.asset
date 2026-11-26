@@ -15,6 +15,62 @@ MonoBehaviour:
   m_TableCollectionName: Medical_Table
   m_TableCollectionNameGuidString: 4550376463b404741a7175f69603913d
   m_Entries:
+  - m_Id: 26454743760764928
+    m_Key: Diagnosis_ExternalBleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902272
+    m_Key: Diagnosis_Hemothorax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902273
+    m_Key: Diagnosis_IntraAbdominalBleeding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902274
+    m_Key: Diagnosis_PericardialTamponade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902275
+    m_Key: Diagnosis_MyocardialInfarction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902276
+    m_Key: Diagnosis_Stroke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743806902277
+    m_Key: Diagnosis_Hypoglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096576
+    m_Key: Diagnosis_Hyperglycemia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096577
+    m_Key: Diagnosis_Fall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096578
+    m_Key: Diagnosis_Anaphylaxis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096579
+    m_Key: Diagnosis_MildAllergicReaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096580
+    m_Key: Diagnosis_Hypothermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096581
+    m_Key: Diagnosis_Hyperthermia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26454743811096582
+    m_Key: Diagnosis_Dehydration
+    m_Metadata:
+      m_Items: []
   - m_Id: 204765659136
     m_Key: Symptom_Hunger
     m_Metadata:

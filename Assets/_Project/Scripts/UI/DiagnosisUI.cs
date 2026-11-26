@@ -24,7 +24,10 @@ public sealed class DiagnosisUI : MonoBehaviour
         diagnosisPanel.SetActive(showDiagnosis);
 
         if (!showDiagnosis) return;
-
-        diagnosisText.text = scenarioController.Diagnosis.ToString();
+        
+        LocalizationService.Instance.GetDiagnosisName(scenarioController.Diagnosis, (translatedDiagnosis) =>
+        {
+            diagnosisText.text = translatedDiagnosis;
+        });
     }
 }
